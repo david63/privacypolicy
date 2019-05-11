@@ -1,0 +1,8 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+
+# Ignore files in releases
+.gitignore export-ignore
+.gitattributes export-ignore
+.travis.yml export-ignore
+/travis export-ignore
