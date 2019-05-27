@@ -9,8 +9,6 @@
 
 namespace david63\privacypolicy\core;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use phpbb\config\config;
 use phpbb\template\template;
 use phpbb\user;
@@ -59,7 +57,7 @@ class privacypolicy
 	/** @var string Custom form action */
 	protected $u_action;
 
-    /**
+	/**
 	* Constructor for privacypolicy
 	*
 	* @param \phpbb\config\config					$config				Config object
@@ -89,7 +87,7 @@ class privacypolicy
 		$this->autogroup_manager	= $autogroup_manager;
 	}
 
-    /**
+	/**
 	* Display the user privacy data
 	*
 	* @return null
@@ -103,7 +101,7 @@ class privacypolicy
 		$this->template->assign_vars(array(
 			'ACCEPT_DATE'				=> ($row['user_accept_date'] > 0) ? $this->user->format_date($row['user_accept_date']) : $this->language->lang('NOT_ACCEPTED'),
 			'BANNER'					=> $this->language->lang('DETAILS_FOR', $row['username']),
- 			'BIRTHDAY'					=> $this->get_birthday($row['user_birthday']),
+			'BIRTHDAY'					=> $this->get_birthday($row['user_birthday']),
 
 			'EMAIL'						=> $row['user_email'],
 
@@ -126,7 +124,7 @@ class privacypolicy
 
 		$template_array = array_merge_recursive($cpf_fields, $cpf_user_data);
 
-		foreach($template_array as $key => $data)
+		foreach ($template_array as $key => $data)
 		{
 			if (array_key_exists($key, $cpf_fields))
 			{
@@ -200,7 +198,7 @@ class privacypolicy
 
 		$csv_array = array_merge_recursive($cpf_fields, $cpf_user_data);
 
-		foreach($csv_array as $key => $data)
+		foreach ($csv_array as $key => $data)
 		{
 			if (array_key_exists($key, $cpf_fields))
 			{
@@ -247,7 +245,6 @@ class privacypolicy
 			'csv_data',
 		);
 		extract($this->dispatcher->trigger_event('david63.privacypolicy.add_csv_ip_after', compact($vars)));
-
 
 		// Merge the header and data files
 		$csv_file = $csv_header . $csv_data;
@@ -318,7 +315,7 @@ class privacypolicy
 			$user_ips = array();
 			while ($row = $this->db->sql_fetchrow($result))
 			{
-				if($row['poster_ip'])
+				if ($row['poster_ip'])
 				{
 					$user_ips[] = $row['poster_ip'];
 				}
@@ -394,7 +391,7 @@ class privacypolicy
 
 		$this->db->sql_freeresult($result);
 
-		foreach($cpf_user_data as $key => $data)
+		foreach ($cpf_user_data as $key => $data)
 		{
 			if ($key != 'user_id')
 			{

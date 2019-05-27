@@ -9,8 +9,6 @@
 
 namespace david63\privacypolicy\core;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use phpbb\config\config;
 use phpbb\user;
 use phpbb\language\language;
@@ -44,7 +42,7 @@ class privacypolicy_lang
 	*/
 	protected $privacy_lang_table;
 
-    /**
+	/**
 	* Constructor for privacypolicy
 	*
 	* @param \phpbb\config\config		$config					Config object
@@ -66,7 +64,7 @@ class privacypolicy_lang
 		$this->privacy_lang_table	= $privacy_lang_table;
 	}
 
-    /**
+	/**
 	* Display the user privacy data
 	*
 	* @return null
@@ -138,7 +136,7 @@ class privacypolicy_lang
 		if ($validate)
 		{
 			// Is the user a Guest? If so then we need to default
-		    if ($this->user->data['user_id'] == ANONYMOUS)
+			if ($this->user->data['user_id'] == ANONYMOUS)
 			{
 				$lang_valid = true;
 			}
@@ -152,7 +150,7 @@ class privacypolicy_lang
 			{
 				// Does board default language/text file combination exist?
 				$lang_valid = $this->validate_lang($lang_name, $this->config['default_lang']);
-				
+
 				if ($lang_valid)
 				{
 					$lang_id = $this->config['default_lang'];

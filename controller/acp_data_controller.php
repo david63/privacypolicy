@@ -9,8 +9,6 @@
 
 namespace david63\privacypolicy\controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use phpbb\config\config;
 use phpbb\request\request;
 use phpbb\user;
@@ -63,7 +61,7 @@ class acp_data_controller implements acp_data_interface
 	/** @var string Custom form action */
 	protected $u_action;
 
-    /**
+	/**
 	* Constructor for data controller
 	*
 	* @param \phpbb\config\config						$config				Config object
@@ -170,7 +168,7 @@ class acp_data_controller implements acp_data_interface
 				'USERNAME'		=> get_username_string('full', $row['user_id'], $row['username'], $row['user_colour']),
 				'USER_ID'		=> $this->language->lang('HASH') . $row['user_id'],
 				'POSTS'			=> $row['user_posts'],
-		   	));
+			));
 		}
 		$this->db->sql_freeresult($result);
 
@@ -276,7 +274,7 @@ class acp_data_controller implements acp_data_interface
 		return $char_select;
 	}
 
-    /**
+	/**
 	* Display the privacy data for a user
 	*
 	* @return null
@@ -359,7 +357,7 @@ class acp_data_controller implements acp_data_interface
 
 						$this->template->assign_var('S_HIDDEN_FIELDS', build_hidden_fields($s_hidden_fields));
 
-			   			$this->privacypolicy->display_privacy_data($user_id);
+						$this->privacypolicy->display_privacy_data($user_id);
 					}
 				}
 			}

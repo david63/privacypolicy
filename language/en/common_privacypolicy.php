@@ -51,6 +51,6 @@ $lang = array_merge($lang, array(
 
 	'USERNAME'			=> 'Username',
 	'USER_IPS'			=> 'IP addresses that you have used',
-	
+
 	'VERSION'			=> 'Version',
 ));

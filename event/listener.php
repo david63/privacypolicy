@@ -431,7 +431,7 @@ class listener implements EventSubscriberInterface
 		if ($this->config['privacy_policy_anonymise'])
 		{
 			$data 					= $event['data'];
-	   		$from_user_ip 			= $data['from_user_ip'];
+			$from_user_ip 			= $data['from_user_ip'];
 			$from_user_ip 			= $this->config['privacy_policy_anonymise_ip'];
 			$data['from_user_ip'] 	= $from_user_ip;
 			$event['data'] 			= $data;

@@ -9,8 +9,6 @@
 
 namespace david63\privacypolicy\controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use phpbb\config\config;
 use phpbb\request\request;
 use phpbb\template\template;
@@ -53,7 +51,7 @@ class acp_manage_controller implements acp_manage_interface
 	/** @var string Custom form action */
 	protected $u_action;
 
-    /**
+	/**
 	* Constructor for admin controller
 	*
 	* @param \phpbb\config\config						$config			Config object
@@ -80,7 +78,7 @@ class acp_manage_controller implements acp_manage_interface
 		$this->privacypolicy	= $privacypolicy;
 	}
 
-    /**
+	/**
 	* Display the options a user can configure for this extension
 	*
 	* @return null
@@ -185,7 +183,7 @@ class acp_manage_controller implements acp_manage_interface
 		));
 	}
 
-    /**
+	/**
 	* Set the options a user can configure
 	*
 	* @return null

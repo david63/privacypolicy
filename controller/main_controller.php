@@ -9,8 +9,6 @@
 
 namespace david63\privacypolicy\controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use phpbb\exception\http_exception;
 use phpbb\user;
 use phpbb\request\request;

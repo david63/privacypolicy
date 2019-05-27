@@ -16,7 +16,7 @@ class ext extends base
 {
 	const PRIVACY_POLICY_VERSION = '2.1.0 RC7';
 
-    /**
+	/**
 	* Enable extension if phpBB version requirement is met
 	*
 	* @var string Require 3.2.0-a1 due to updated 3.2 syntax

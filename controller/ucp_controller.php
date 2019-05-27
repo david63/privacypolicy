@@ -9,8 +9,6 @@
 
 namespace david63\privacypolicy\controller;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use phpbb\config\config;
 use phpbb\user;
 use phpbb\request\request;
@@ -44,7 +42,7 @@ class ucp_controller implements ucp_interface
 	/** @var string Custom form action */
 	protected $u_action;
 
-    /**
+	/**
 	* Constructor for ucp controller
 	*
 	* @param \phpbb\config\config						$config			Config object
@@ -67,7 +65,7 @@ class ucp_controller implements ucp_interface
 		$this->privacypolicy	= $privacypolicy;
 	}
 
-    /**
+	/**
 	* Display the privacy data for a user
 	*
 	* @return null
@@ -92,7 +90,7 @@ class ucp_controller implements ucp_interface
 			{
 				$error = $this->user->lang('FORM_INVALID');
 			}
-		   	else
+			else
 			{
 				$this->privacypolicy->create_csv($this->user->data['username'], $this->user->data['user_id']);
 			}
