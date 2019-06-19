@@ -17,7 +17,7 @@ use phpbb\language\language;
 use phpbb\log\log;
 use phpbb\db\driver\driver_interface;
 use david63\privacypolicy\core\privacypolicy;
-use david63\privacypolicy\core\functions;;
+use david63\privacypolicy\core\functions;
 
 /**
 * Admin controller
@@ -66,7 +66,7 @@ class acp_manage_controller implements acp_manage_interface
 	* @param \phpbb\user								$user			User object
 	* @param \phpbb\language\language					$language		Language object
 	* @param \phpbb\log\log								$log			Log object
-	* @param phpbb_db_driver							$db				The db connection
+	* @param \phpbb_db_driver							$db				The db connection
 	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy	Methods for the extension
 	* @param \david63\privacypolicy\core\functions		$functions		Functions for the extension
 	* @param array										$tables			phpBB db tables
