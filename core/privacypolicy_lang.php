@@ -42,6 +42,9 @@ class privacypolicy_lang
 	*/
 	protected $privacy_lang_table;
 
+	/** @var string phpBB tables */
+	protected $tables;
+
 	/**
 	* Constructor for privacypolicy
 	*
@@ -50,11 +53,12 @@ class privacypolicy_lang
 	* @param \phpbb\language\language	$language				Language object
 	* @param \phpbb_db_driver			$db						The db connection
 	* @param \phpbb\template\template	$template				Template object
-	* @param string						$privacy_lang_table		Name of the table used to store log searches data
+	* @param string						$privacy_lang_table		Name of the table for this extension
+	* @param array						$tables					phpBB db tables
 	*
 	* @access public
 	*/
-	public function __construct(config $config, user $user, language $language, driver_interface $db, template $template, $privacy_lang_table)
+	public function __construct(config $config, user $user, language $language, driver_interface $db, template $template, $privacy_lang_table, $tables)
 	{
 		$this->config				= $config;
 		$this->user					= $user;
@@ -62,6 +66,7 @@ class privacypolicy_lang
 		$this->db					= $db;
 		$this->template				= $template;
 		$this->privacy_lang_table	= $privacy_lang_table;
+		$this->tables				= $tables;
 	}
 
 	/**
@@ -232,7 +237,7 @@ class privacypolicy_lang
 	public function get_languages()
 	{
 		$sql = 'SELECT lang_iso, lang_local_name
-			FROM ' . LANG_TABLE . '
+			FROM ' . $this->tables['lang'] . '
 			ORDER BY lang_english_name';
 
 		$result	= $this->db->sql_query($sql);
@@ -260,7 +265,7 @@ class privacypolicy_lang
 	public function get_lang_name($lang_iso)
 	{
 		$sql = 'SELECT lang_local_name
-			FROM ' . LANG_TABLE . '
+			FROM ' . $this->tables['lang'] . '
 			WHERE lang_iso = ' . "'$lang_iso'";
 
 		$result	= $this->db->sql_query($sql);

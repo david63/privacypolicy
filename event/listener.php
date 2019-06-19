@@ -26,6 +26,7 @@ use phpbb\language\language;
 use david63\privacypolicy\core\privacypolicy_lang;
 use david63\privacypolicy\core\privacypolicy;
 use phpbb\autogroups\conditions\manager;
+use david63\privacypolicy\core\functions;
 
 /**
 * Event listener
@@ -62,6 +63,9 @@ class listener implements EventSubscriberInterface
 	/** @var \david63\privacypolicy\core\privacypolicy */
 	protected $privacypolicy;
 
+	/** @var \david63\privacypolicy\core\functions */
+	protected $functions;
+
 	/** @var \phpbb\autogroups\conditions\manage */
 	protected $autogroup_manager;
 
@@ -77,12 +81,13 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\request\request							$request			Request object
 	* @param \phpbb\language\language						$language			Language object
 	* @param \david63\privacypolicy\core\privacypolicy_lang	privacypolicy_lang	Methods for the extension
+	* @param \david63\privacypolicy\core\functions			$functions			Functions for the extension
 	* @param \phpbb\autogroups\conditions\manage			autogroup_manager	Autogroup manager
 	*
 	* @return \david63\privacypolicy\event\listener
 	* @access public
 	*/
-	public function __construct(config $config, auth $auth, template $template, user $user, log $log, helper $helper, request $request, language $language, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, manager $autogroup_manager = null)
+	public function __construct(config $config, auth $auth, template $template, user $user, log $log, helper $helper, request $request, language $language, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, functions $functions, manager $autogroup_manager = null)
 	{
 		$this->config				= $config;
 		$this->auth					= $auth;
@@ -94,6 +99,7 @@ class listener implements EventSubscriberInterface
 		$this->language				= $language;
 		$this->privacypolicy_lang	= $privacypolicy_lang;
 		$this->privacypolicy		= $privacypolicy;
+		$this->functions			= $functions;
 		$this->autogroup_manager 	= $autogroup_manager;
 
 		$this->cookie_set			= $this->request->is_set($this->config['cookie_name'] . '_ca', request_interface::COOKIE) ? true : false;
@@ -169,6 +175,8 @@ class listener implements EventSubscriberInterface
 		if ($this->config['cookie_policy_enable'] && !$this->user->data['is_bot'] && !$this->cookie_set)
 		{
 			$this->template->assign_vars(array(
+				'NAMESPACE'					=> $this->functions->get_ext_namespace('twig'),
+
 				'COOKIE_BOX_BD_COLOUR'		=> $this->config['cookie_box_bdr_colour'],
 				'COOKIE_BOX_BD_WIDTH'		=> $this->config['cookie_box_bdr_width'],
 				'COOKIE_BOX_BG_COLOUR'		=> $this->config['cookie_box_bg_colour'],
@@ -195,10 +203,10 @@ class listener implements EventSubscriberInterface
 	*/
 	public function add_permissions($event)
 	{
-		$permissions = $event['permissions'];
-		$permissions['a_privacy_view'] = array('lang' => 'ACL_A_PRIVACY_VIEW', 'cat' => 'misc');
-		$permissions['u_privacy_view'] = array('lang' => 'ACL_U_PRIVACY_VIEW', 'cat' => 'profile');
-		$event['permissions'] = $permissions;
+		$permissions					= $event['permissions'];
+		$permissions['a_privacy_view']	= array('lang' => 'ACL_A_PRIVACY_VIEW', 'cat' => 'misc');
+		$permissions['u_privacy_view']	= array('lang' => 'ACL_U_PRIVACY_VIEW', 'cat' => 'profile');
+		$event['permissions']			= $permissions;
 	}
 
 	/**
@@ -239,7 +247,7 @@ class listener implements EventSubscriberInterface
 		// load the language files
 		$lang_set_ext	= $event['lang_set_ext'];
 		$lang_set_ext[]	= array(
-			'ext_name' => 'david63/privacypolicy',
+			'ext_name' => $this->functions->get_ext_namespace(),
 			'lang_set' => 'privacypolicy',
 		);
 		$event['lang_set_ext'] = $lang_set_ext;
@@ -350,7 +358,7 @@ class listener implements EventSubscriberInterface
 	public function add_visibility($event)
 	{
 		// Add the language file
-		$this->language->add_lang('acp_cpf_privacypolicy', 'david63/privacypolicy');
+		$this->language->add_lang('acp_cpf_privacypolicy', $this->functions->get_ext_namespace());
 
 		$action 		= $event['action'];
 		$field_row		= $event['field_row'];

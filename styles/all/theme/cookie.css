@@ -51,10 +51,15 @@
   	margin-bottom: 15px;
 }
 
+.policy-text {
+	font-size: 12px;
+}
+
 /* Darker background on mouse-over */
 .download-btn:hover {
   	background-color: #4169E1;
 }
+
 
 /* ---------
 Version
@@ -70,24 +75,28 @@ Version
 	text-align: center;
 	color: #FFFFFF;
 	font-size: 0.8em;
-	font: / Tahoma, Arial, sans-serif;
 	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding: 4px 5px 0 5px
 }
 
 .version-text {
-	-webkit-border-radius: 4px 0px 0px 4px;
-	-moz-border-radius: 4px 0px 0px 4px;
-	border-radius: 4px 0px 0px 4px;
+	border-radius: 4px 0 0 4px;
 	background-color: #2E2E2E;
 	float: left;
 }
 
-.version-data {
-	-webkit-border-radius: 0px 4px 4px 0px;
-	-moz-border-radius: 0px 4px 4px 0px;
-	border-radius: 0px 4px 4px 0px;
-	background-color: #CC7A00;
+.rtl .version-text {
+	border-radius: 0 4px 4px 0;
 	float: right;
+}
+
+.version-data {
+	border-radius: 0 4px 4px 0;
+	background-color:#CC7A00;
+	float: right;
+}
+
+.rtl .version-data {
+	border-radius: 4px 0 0 4px;
+	float: left;
 }

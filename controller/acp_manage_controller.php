@@ -17,7 +17,7 @@ use phpbb\language\language;
 use phpbb\log\log;
 use phpbb\db\driver\driver_interface;
 use david63\privacypolicy\core\privacypolicy;
-use david63\privacypolicy\ext;
+use david63\privacypolicy\core\functions;;
 
 /**
 * Admin controller
@@ -48,6 +48,12 @@ class acp_manage_controller implements acp_manage_interface
 	/** @var \david63\privacypolicy\core\privacypolicy */
 	protected $privacypolicy;
 
+	/** @var \david63\privacypolicy\core\functions */
+	protected $functions;
+
+	/** @var string phpBB tables */
+	protected $tables;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
@@ -62,11 +68,13 @@ class acp_manage_controller implements acp_manage_interface
 	* @param \phpbb\log\log								$log			Log object
 	* @param phpbb_db_driver							$db				The db connection
 	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy	Methods for the extension
+	* @param \david63\privacypolicy\core\functions		$functions		Functions for the extension
+	* @param array										$tables			phpBB db tables
 	*
 	* @return \david63\privacypolicy\controller\acp_manage_controller
 	* @access public
 	*/
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, privacypolicy $privacypolicy)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, privacypolicy $privacypolicy, functions $functions, $tables)
 	{
 		$this->config			= $config;
 		$this->request			= $request;
@@ -76,6 +84,8 @@ class acp_manage_controller implements acp_manage_interface
 		$this->log				= $log;
 		$this->db				= $db;
 		$this->privacypolicy	= $privacypolicy;
+		$this->functions		= $functions;
+		$this->tables			= $tables;
 	}
 
 	/**
@@ -87,7 +97,7 @@ class acp_manage_controller implements acp_manage_interface
 	public function display_options()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_privacypolicy', 'david63/privacypolicy');
+		$this->language->add_lang('acp_privacypolicy', $this->functions->get_ext_namespace());
 
 		// Check if Tapatalk is installed
 		$this->privacypolicy->tapatalk();
@@ -117,7 +127,7 @@ class acp_manage_controller implements acp_manage_interface
 			if ($this->config['privacy_policy_reset'])
 			{
 				// Reset the accept date in the Users table
-				$sql = 'UPDATE ' . USERS_TABLE . '
+				$sql = 'UPDATE ' . $this->tables['users'] . '
 					SET user_accept_date = 0';
 
 				$this->db->sql_query($sql);
@@ -145,9 +155,12 @@ class acp_manage_controller implements acp_manage_interface
 			'HEAD_TITLE'		=> $this->language->lang('COOKIE_POLICY'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('COOKIE_POLICY_EXPLAIN'),
 
-			'S_BACK'			=> $back,
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
-			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+			'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
 		// Set output vars for display in the template

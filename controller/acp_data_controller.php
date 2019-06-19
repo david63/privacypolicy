@@ -18,7 +18,7 @@ use phpbb\db\driver\driver_interface;
 use david63\privacypolicy\core\privacypolicy;
 use phpbb\pagination;
 use phpbb\log\log;
-use david63\privacypolicy\ext;
+use david63\privacypolicy\core\functions;
 
 /**
 * Admin data controller
@@ -58,6 +58,12 @@ class acp_data_controller implements acp_data_interface
 	/** @var \phpbb\log\log */
 	protected $log;
 
+	/** @var \david63\privacypolicy\core\functions */
+	protected $functions;
+
+	/** @var string phpBB tables */
+	protected $tables;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
@@ -75,11 +81,13 @@ class acp_data_controller implements acp_data_interface
 	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy		Methods for the extension
 	* @param \phpbb\pagination							$pagination			Pagination object
 	* @param \phpbb\log\log								$log				Log object
+	* @param \david63\privacypolicy\core\functions		$functions			Functions for the extension
+	* @param array										$tables			phpBB db tables
 	*
 	* @return \david63\privacypolicy\controller\acp_data_controller
 	* @access public
 	*/
-	public function __construct(config $config, request $request, user $user, template $template, language $language, driver_interface $db, $root_path, $php_ext, privacypolicy $privacypolicy, pagination $pagination, log $log)
+	public function __construct(config $config, request $request, user $user, template $template, language $language, driver_interface $db, $root_path, $php_ext, privacypolicy $privacypolicy, pagination $pagination, log $log, functions $functions, $tables)
 	{
 		$this->config			= $config;
 		$this->request			= $request;
@@ -92,6 +100,8 @@ class acp_data_controller implements acp_data_interface
 		$this->privacypolicy	= $privacypolicy;
 		$this->pagination		= $pagination;
 		$this->log				= $log;
+		$this->functions		= $functions;
+		$this->tables			= $tables;
 	}
 
 	/**
@@ -103,7 +113,7 @@ class acp_data_controller implements acp_data_interface
 	public function display_list()
 	{
 		// Add the language file
-		$this->language->add_lang('acp_list_privacypolicy', 'david63/privacypolicy');
+		$this->language->add_lang('acp_list_privacypolicy', $this->functions->get_ext_namespace());
 
 		// Check if Tapatalk is installed
 		$this->privacypolicy->tapatalk();
@@ -151,7 +161,7 @@ class acp_data_controller implements acp_data_interface
 		$sql = $this->db->sql_build_query('SELECT', array(
 			'SELECT'	=> 'u.user_id, u.username, u.username_clean, u.user_colour, u.user_regdate, u.user_accept_date, u.user_posts, u.user_lastvisit',
 			'FROM'		=> array(
-				USERS_TABLE	=> 'u',
+				$this->tables['users']	=> 'u',
 			),
 			'WHERE'		=> 'u.user_type <> ' . USER_IGNORE . $filter_by,
 			'ORDER_BY'	=> ($sort_key == '') ? 'u.username_clean ASC' : $order_ary[$sort_key] . ', u.username_clean ASC',
@@ -182,7 +192,7 @@ class acp_data_controller implements acp_data_interface
 		$sql = $this->db->sql_build_query('SELECT', array(
 			'SELECT'	=> 'COUNT(u.user_id) AS total_users',
 			'FROM'		=> array(
-				USERS_TABLE	=> 'u',
+				$this->tables['users']	=> 'u',
 			),
 			'WHERE'		=> 'u.user_type <> ' . USER_IGNORE . $filter_by,
 		));
@@ -220,9 +230,12 @@ class acp_data_controller implements acp_data_interface
 			'HEAD_TITLE'		=> $this->language->lang('PRIVACY_LIST'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('PRIVACY_LIST_EXPLAIN'),
 
-			'S_BACK'			=> $back,
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
-			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+			'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
 		$this->template->assign_vars(array(
@@ -283,8 +296,8 @@ class acp_data_controller implements acp_data_interface
 	public function display_data()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_data_privacypolicy', 'david63/privacypolicy');
-		$this->language->add_lang('common_privacypolicy', 'david63/privacypolicy');
+		$this->language->add_lang('acp_data_privacypolicy', $this->functions->get_ext_namespace());
+		$this->language->add_lang('common_privacypolicy', $this->functions->get_ext_namespace());
 
 		$error = false;
 		$error_title = $error_description = '';
@@ -340,7 +353,6 @@ class acp_data_controller implements acp_data_interface
 					// Is the username valid?
 					if (!$user_id)
 					{
-						//trigger_error($this->language->lang('INVALID_USERNAME') . adm_back_link($this->u_action), E_USER_WARNING);
 						$error 				= true;
 						$error_title 		= $this->language->lang('WARNING');
 						$error_description	= $this->language->lang('INVALID_USERNAME');
@@ -403,16 +415,19 @@ class acp_data_controller implements acp_data_interface
 
 		// Template vars for header panel
 		$this->template->assign_vars(array(
-			'ERROR_TITLE'		=> $error_title, //$this->language->lang('TAPATALK_INSTALLED'),
-			'ERROR_DESCRIPTION'	=> $error_description, //$this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
+			'ERROR_TITLE'		=> $error_title,
+			'ERROR_DESCRIPTION'	=> $error_description,
 
 			'HEAD_TITLE'		=> $this->language->lang('ACP_PRIVACY_TITLE'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('ACP_PRIVACY_POLICY_EXPLAIN'),
 
-			'S_BACK'			=> $back,
-			'S_ERROR'			=> $error,
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
-			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+			'S_BACK'			=> $back,
+			'S_ERROR'			=> $error,'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
 		$this->template->assign_vars(array(

@@ -1,12 +1,11 @@
-{% include 'overall_header.html' %}
-{% include '@david63_privacypolicy/head_panel.html' %}
+{% include '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
 <form id="privacy_policy_data" method="post" action="{U_ACTION}">
 
 {% if S_CONFIRM %}
 	<fieldset>
 		<dl>
-			<dt><label for="privacy_username">{{ lang('SELECT_USERNAME') }}{{ lang('COLON') }}</label><br /><span>{{ lang('SELECT_USERNAME_EXPLAIN') }}</span></dt>
+			<dt><label for="privacy_username">{{ lang('SELECT_USERNAME') }}{{ lang('COLON') }}</label><br><span>{{ lang('SELECT_USERNAME_EXPLAIN') }}</span></dt>
 			<dd>
 				<input class="textbox" type="text" id="privacy_username" name="privacy_username" size="25" maxlength="255" />
 			</dd>

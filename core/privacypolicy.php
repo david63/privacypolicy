@@ -17,7 +17,7 @@ use phpbb\db\driver\driver_interface;
 use phpbb\event\dispatcher_interface;
 use phpbb\di\service_collection;
 use phpbb\autogroups\conditions\manager;
-use david63\privacypolicy\ext;
+use david63\privacypolicy\core\functions;
 
 /**
 * privacypolicy
@@ -51,6 +51,12 @@ class privacypolicy
 	/** @var string PHP extension */
 	protected $phpEx;
 
+	/** @var \david63\privacypolicy\core\functions */
+	protected $functions;
+
+	/** @var string phpBB tables */
+	protected $tables;
+
 	/** @var \phpbb\autogroups\conditions\manage */
 	protected $autogroup_manager;
 
@@ -69,11 +75,13 @@ class privacypolicy
 	* @param \phpbb\di\service_collection 			$type_collection	CPF data
 	* @param string									$phpbb_root_path    phpBB root path
 	* @param string									$php_ext            phpBB extension
+	* @param \david63\privacypolicy\core\functions	$functions			Functions for the extension
+	* @param array									$tables				phpBB db tables
 	* @param \phpbb\autogroups\conditions\manage	autogroup_manager	Autogroup manager
 	*
 	* @access public
 	*/
-	public function __construct(config $config, template $template, user $user, language $language, driver_interface $db, dispatcher_interface $dispatcher, service_collection $type_collection, $root_path, $php_ext, manager $autogroup_manager = null)
+	public function __construct(config $config, template $template, user $user, language $language, driver_interface $db, dispatcher_interface $dispatcher, service_collection $type_collection, $root_path, $php_ext, functions $functions, $tables, manager $autogroup_manager = null)
 	{
 		$this->config				= $config;
 		$this->template				= $template;
@@ -84,6 +92,8 @@ class privacypolicy
 		$this->type_collection 		= $type_collection;
 		$this->root_path			= $root_path;
 		$this->php_ext				= $php_ext;
+		$this->functions			= $functions;
+		$this->tables				= $tables;
 		$this->autogroup_manager	= $autogroup_manager;
 	}
 
@@ -105,7 +115,7 @@ class privacypolicy
 
 			'EMAIL'						=> $row['user_email'],
 
-			'PRIVACY_POLICY_VERSION'	=> ext::PRIVACY_POLICY_VERSION,
+			'PRIVACY_POLICY_VERSION'	=> $this->functions->get_this_version(),
 
 			'REG_DATE'					=> $this->user->format_date($row['user_regdate']),
 			'REG_IP'					=> $row['user_ip'],
@@ -278,7 +288,7 @@ class privacypolicy
 	{
 			// Get the user data
 		$sql = 'SELECT *
-			FROM ' . USERS_TABLE . '
+			FROM ' . $this->tables['users'] . '
 			WHERE user_id = ' . $user_id;
 
 		$result = $this->db->sql_query($sql);
@@ -306,7 +316,7 @@ class privacypolicy
 		else
 		{
 			$sql = 'SELECT poster_ip
-				FROM ' . POSTS_TABLE . '
+				FROM ' . $this->tables['posts'] . '
 				WHERE poster_id = ' . $user_id . "
 				GROUP BY poster_ip";
 
@@ -330,7 +340,7 @@ class privacypolicy
 		else
 		{
 			natsort($user_ips);
-			return implode('<br />', $user_ips);
+			return implode('<br>', $user_ips);
 		}
 	}
 
@@ -375,11 +385,11 @@ class privacypolicy
 		$sql = $this->db->sql_build_query('SELECT', array(
 			'SELECT'	=> 'pfd.*',
 			'FROM'		=> array(
-				USERS_TABLE => 'u',
+				$this->tables['users'] => 'u',
 			),
 			'LEFT_JOIN'	=> array(
 				array(
-					'FROM'	=> array(PROFILE_FIELDS_DATA_TABLE	=> ' pfd',),
+					'FROM'	=> array($this->tables['profile_fields_data']	=> ' pfd',),
 					'ON'	=> 'u.user_id = pfd.user_id',
 				),
 			),
@@ -411,7 +421,7 @@ class privacypolicy
 	public function get_cpf_fields()
 	{
 		$sql = 'SELECT pf.field_name, pl.lang_name
-			FROM ' . PROFILE_FIELDS_TABLE . ' pf, ' . PROFILE_LANG_TABLE . ' pl, ' . LANG_TABLE . " l
+			FROM ' . $this->tables['profile_fields'] . ' pf, ' . $this->tables['profile_lang'] . ' pl, ' . $this->tables['lang'] . " l
 			WHERE pf.field_id  = pl.field_id
 				AND pf.field_privacy_show = 1
 				AND pl.lang_id = l.lang_id
@@ -451,11 +461,11 @@ class privacypolicy
 		$sql = $this->db->sql_build_query('SELECT', array(
 			'SELECT'	=> 'pf.*, pfl.lang_id, pfl.option_id, pfl.lang_value',
 			'FROM'		=> array(
-				PROFILE_FIELDS_TABLE => 'pf',
+				$this->tables['profile_fields'] => 'pf',
 			),
 			'LEFT_JOIN'	=> array(
 				array(
-					'FROM'	=> array(PROFILE_FIELDS_LANG_TABLE	=> ' pfl',),
+					'FROM'	=> array($this->tables['profile_fields_lang']	=> ' pfl',),
 					'ON'	=> 'pf.field_id = pfl.field_id',
 				),
 			),
@@ -510,7 +520,7 @@ class privacypolicy
 	public function tapatalk($error = true)
 	{
 		$sql = 'SELECT *
-			FROM ' . EXT_TABLE . "
+			FROM ' . $this->tables['ext'] . "
 			WHERE ext_name = 'tapatalk/tapatalk'";
 
 		$result	= $this->db->sql_query($sql);

@@ -18,7 +18,7 @@ use phpbb\log\log;
 use phpbb\db\driver\driver_interface;
 use david63\privacypolicy\core\privacypolicy_lang;
 use david63\privacypolicy\core\privacypolicy;
-use david63\privacypolicy\ext;
+use david63\privacypolicy\core\functions;
 
 /**
  * ACP edit controller
@@ -65,6 +65,9 @@ class acp_edit_controller implements acp_edit_interface
 	*/
 	protected $privacy_lang_table;
 
+	/** @var \david63\privacypolicy\core\functions */
+	protected $functions;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
@@ -77,17 +80,18 @@ class acp_edit_controller implements acp_edit_interface
 	 * @param \phpbb\user                                    	$user               User object
 	 * @param \phpbb\language\language                       	$language           Language object
 	 * @param \phpbb\log\log                                 	$log                Log object
-	 * @param phpbb_db_driver                                	$db                 The db connection
+	 * @param \phpbb_db_driver                                	$db                 The db connection
 	 * @param string										 	$phpbb_root_path	phpBB root path
 	 * @param string										 	$php_ext            phpBB extension
 	 * @param \david63\privacypolicy\core\privacypolicy_lang 	privacypolicy_lang  Methods for the extension
 	 * @param \david63\privacypolicy\core\privacypolicy			privacypolicy		Methods for the extension
 	 * @param string											$privacy_lang_table	Name of the table used to store log searches data
+	 * @param \david63\privacypolicy\core\functions				$functions			Functions for the extension
 	 *
 	 * @return \david63\privacypolicy\controller\acp_edit_controller
 	 * @access public
 	 */
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, $privacy_lang_table)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, $privacy_lang_table, functions $functions)
 	{
 		$this->config             	= $config;
 		$this->request            	= $request;
@@ -101,6 +105,7 @@ class acp_edit_controller implements acp_edit_interface
 		$this->privacypolicy_lang 	= $privacypolicy_lang;
 		$this->privacypolicy		= $privacypolicy;
 		$this->privacy_lang_table	= $privacy_lang_table;
+		$this->functions			= $functions;
 	}
 
 	/**
@@ -117,7 +122,7 @@ class acp_edit_controller implements acp_edit_interface
 		}
 
 		// Add the language files
-		$this->language->add_lang('acp_privacy_edit', 'david63/privacypolicy');
+		$this->language->add_lang('acp_privacy_edit', $this->functions->get_ext_namespace());
 		$this->language->add_lang('posting');
 
 		// Check if Tapatalk is installed
@@ -316,9 +321,12 @@ class acp_edit_controller implements acp_edit_interface
 			'HEAD_TITLE'		=> $this->language->lang('POLICY_EDIT'),
 			'HEAD_DESCRIPTION'	=> $this->language->lang('POLICY_EDIT_EXPLAIN'),
 
-			'S_BACK'			=> $back,
+			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
-			'VERSION_NUMBER'	=> ext::PRIVACY_POLICY_VERSION,
+			'S_BACK'			=> $back,
+			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+
+			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
 		));
 
 		$this->template->assign_vars(array(

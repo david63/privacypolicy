@@ -5,7 +5,7 @@
 			var cookieLinks = '{{ lang('COOKIE_BLOCK') | escape('js') }}';
 		</script>
 
-		{% INCLUDEJS '@david63_privacypolicy/remove_url.js' %}
+		{% INCLUDEJS '@' ~ NAMESPACE ~ '/remove_url.js' %}
 	{% endif %}
 
 	<script>
@@ -24,5 +24,5 @@
 	</script>
 
 
-	{% INCLUDEJS '@david63_privacypolicy/cookie_fn.js' %}
+	{% INCLUDEJS '@' ~ NAMESPACE ~ '/cookie_fn.js' %}
 {% endif %}

@@ -3,7 +3,7 @@
 		<legend>{{ lang('DONATE') }}</legend>
 
 		<dl>
-			<dt><label for="donate">{{ lang('DONATE_EXTENSIONS') }}{{ lang('COLON') }}</label><br /><span>{{ lang('DONATE_EXTENSIONS_EXPLAIN') }}</span></dt>
+			<dt><label for="donate">{{ lang('DONATE_EXTENSIONS') }}{{ lang('COLON') }}</label><br><span>{{ lang('DONATE_EXTENSIONS_EXPLAIN') }}</span></dt>
 			<dd>
 				<div class="aligner">
 					<div class="aligner-item">
@@ -17,3 +17,6 @@
 
 	</fieldset>
 </form>
+
+{% INCLUDEJS '@' ~ NAMESPACE ~ '/jscolor.js' %}
+{% include 'overall_footer.html' %}

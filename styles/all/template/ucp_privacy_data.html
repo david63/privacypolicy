@@ -1,5 +1,5 @@
 {% include 'ucp_header.html' %}
-{% INCLUDECSS '@david63_privacypolicy/cookie.css' %}
+{% INCLUDECSS '@' ~ NAMESPACE ~ '/cookie.css' %}
 
 <h2>
 	{{ lang('UCP_PRIVACY_TITLE') }}
@@ -7,7 +7,7 @@
 		<div class="version-text">{{ lang('VERSION') }}</div>
 		<div class="version-data">{{ PRIVACY_POLICY_VERSION }}</div>
 	</div>
-	<br />
+	<br>
 </h2>
 
 <div class="panel">

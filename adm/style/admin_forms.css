@@ -272,7 +272,7 @@ Pagination
 /* ---------
 Panels
 --------- */
-.head-panel, .head-panel-error {
+.head-panel, .head-panel-error, .head-panel-version {
 	width: auto;
 	height: auto;
 	border-radius: 1em;
@@ -289,10 +289,17 @@ Panels
 	background-color: #ffffff;
 }
 
-.head-panel-error {
-	background-color: #BC2A4D;
+.head-panel-error, .head-panel-version {
 	color: #FFFFFF;
 	text-align: center;
+}
+
+.head-panel-error {
+	background-color: #BC2A4D;
+}
+
+.head-panel-version {
+	background-color: #228822;
 }
 
 .head-title {
@@ -455,12 +462,12 @@ Tables
 	width: 700px;
 }
 
-.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide {
+.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre {
 	display: table-cell;
 	text-align: left;
 	vertical-align: middle;
 	font-size: 0.85em;
-	padding: 4px 5px;
+	padding: 4px 0 4px 5px;
 	line-height: 1.20em;
 	border-right: 1px solid #FFFFFF;
 }
@@ -480,10 +487,19 @@ Tables
 
 .table-body-cell-narrow {
 	width: 200px;
+	vertical-align: top;
 }
 
 .table-body-cell-wide {
 	width: 500px;
+}
+
+.table-body-cell-centre {
+	text-align: center;
+}
+
+.shaded {
+	background-color: #EBEBEB;
 }
 
 .pointer {
@@ -539,9 +555,7 @@ Version
 	color: #FFFFFF;
 	font-size: 0.8em;
 	font-weight: bold;
-	padding-left: 5px;
-	padding-right: 5px;
-	padding-top: 4px;
+	padding: 4px 5px 0 5px
 }
 
 .version-text {

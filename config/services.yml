@@ -1,5 +1,6 @@
 imports:
     - { resource: tables.yml }
+    - { resource: phpbb_tables.yml }
 
 services:
     david63.privacypolicy.listener:
@@ -14,7 +15,8 @@ services:
             - '@request'
             - '@language'
             - '@david63.privacypolicy.core.privacypolicy_lang'
-            - '@david63.privacypolicy.core.privacypolicy'			
+            - '@david63.privacypolicy.core.privacypolicy'
+            - '@david63.privacypolicy.core.functions'
         tags:
             - { name: event.listener }
 
@@ -32,6 +34,8 @@ services:
             - '%core.php_ext%'
             - '@david63.privacypolicy.core.privacypolicy_lang'
             - '@david63.privacypolicy.core.privacypolicy'
+            - '@david63.privacypolicy.core.functions'
+            - '%tables%'
 
     david63.privacypolicy.acp.manage.controller:
         class: david63\privacypolicy\controller\acp_manage_controller
@@ -44,6 +48,8 @@ services:
             - '@log'
             - '@dbal.conn'
             - '@david63.privacypolicy.core.privacypolicy'
+            - '@david63.privacypolicy.core.functions'
+            - '%tables%'
 
     david63.privacypolicy.acp.edit.controller:
         class: david63\privacypolicy\controller\acp_edit_controller
@@ -60,6 +66,7 @@ services:
             - '@david63.privacypolicy.core.privacypolicy_lang'
             - '@david63.privacypolicy.core.privacypolicy'
             - '%david63.privacypolicy.tables.privacy_lang%'
+            - '@david63.privacypolicy.core.functions'
 
     david63.privacypolicy.acp.data.controller:
         class: david63\privacypolicy\controller\acp_data_controller
@@ -75,6 +82,8 @@ services:
             - '@david63.privacypolicy.core.privacypolicy'
             - '@pagination'
             - '@log'
+            - '@david63.privacypolicy.core.functions'
+            - '%tables%'
 
     david63.privacypolicy.ucp.controller:
         class: david63\privacypolicy\controller\ucp_controller
@@ -85,6 +94,7 @@ services:
             - '@language'
             - '@template'
             - '@david63.privacypolicy.core.privacypolicy'
+            - '@david63.privacypolicy.core.functions'
 
     david63.privacypolicy.core.privacypolicy:
         class: david63\privacypolicy\core\privacypolicy
@@ -98,6 +108,8 @@ services:
             - '@profilefields.type_collection'
             - '%core.root_path%'
             - '%core.php_ext%'
+            - '@david63.privacypolicy.core.functions'
+            - '%tables%'
             - '@?phpbb.autogroups.manager'
 
     david63.privacypolicy.core.privacypolicy_lang:
@@ -109,6 +121,7 @@ services:
             - '@dbal.conn'
             - '@template'
             - '%david63.privacypolicy.tables.privacy_lang%'
+            - '%tables%'			
 
     david63.privacypolicy.autogroups.type.ppaccept:
         class: david63\privacypolicy\conditions\type\ppaccept
@@ -123,3 +136,8 @@ services:
             - '%core.php_ext%'
         tags:
             - { name: phpbb.autogroups.type }
+
+    david63.privacypolicy.core.functions:
+        class: david63\privacypolicy\core\functions
+        arguments:
+            - '@ext.manager'

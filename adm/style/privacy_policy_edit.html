@@ -1,5 +1,4 @@
-{% include 'overall_header.html' %}
-{% include '@david63_privacypolicy/head_panel.html' %}
+{% include '@' ~ NAMESPACE ~ '/head_panel.html' %}
 
 <script>
 	var form_name	= 'privacypolicy';
@@ -66,12 +65,12 @@
 
 			{% if S_ADD_NEW %}
 				<dl>
-					<dt><label for="privacy_lang_description">{{ lang('POLICY_DESCRIPTION') }}{{ lang('COLON') }}</label><br /><span>{{ POLICY_DESCRIPTION_EXPLAIN }}</span></dt>
+					<dt><label for="privacy_lang_description">{{ lang('POLICY_DESCRIPTION') }}{{ lang('COLON') }}</label><br><span>{{ POLICY_DESCRIPTION_EXPLAIN }}</span></dt>
 					<dd><input class="text medium" type="text" id="privacy_lang_description" name="privacy_lang_description" value="{{ POLICY_DESCRIPTION }}" maxlength="40" /></dd>
 				</dl>
 			{% endif %}
 
-			{% INCLUDE 'acp_posting_buttons.html' %}
+			{% include 'acp_posting_buttons.html' %}
 			<dl class="responsive-columns">
 				<dt style="width: 90px;" id="color_palette_placeholder" data-orientation="v" data-height="12" data-width="15" data-bbcode="true"></dt>
 				<dd style="margin-{{ S_CONTENT_FLOW_BEGIN }}: 90px;">
@@ -92,5 +91,5 @@
 	</form>
 {% endif %}
 
-{% INCLUDEJS '@david63_privacypolicy/sitename.js' %}
+{% INCLUDEJS '@' ~ NAMESPACE ~ '/sitename.js' %}
 {% include 'overall_footer.html' %}
