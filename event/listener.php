@@ -175,8 +175,6 @@ class listener implements EventSubscriberInterface
 		if ($this->config['cookie_policy_enable'] && !$this->user->data['is_bot'] && !$this->cookie_set)
 		{
 			$this->template->assign_vars(array(
-				'NAMESPACE'					=> $this->functions->get_ext_namespace('twig'),
-
 				'COOKIE_BOX_BD_COLOUR'		=> $this->config['cookie_box_bdr_colour'],
 				'COOKIE_BOX_BD_WIDTH'		=> $this->config['cookie_box_bdr_width'],
 				'COOKIE_BOX_BG_COLOUR'		=> $this->config['cookie_box_bg_colour'],
@@ -185,6 +183,8 @@ class listener implements EventSubscriberInterface
 				'COOKIE_BOX_TXT_COLOUR'		=> $this->config['cookie_box_txt_colour'],
 				'COOKIE_EXPIRES'			=> $this->config['cookie_expire'],
 				'COOKIE_NAME'				=> $this->config['cookie_name'],
+
+				'PP_NAMESPACE'				=> $this->functions->get_ext_namespace('twig'),
 			));
 		}
 
