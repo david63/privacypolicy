@@ -183,12 +183,12 @@ class listener implements EventSubscriberInterface
 				'COOKIE_BOX_TXT_COLOUR'		=> $this->config['cookie_box_txt_colour'],
 				'COOKIE_EXPIRES'			=> $this->config['cookie_expire'],
 				'COOKIE_NAME'				=> $this->config['cookie_name'],
-
-				'PP_NAMESPACE'				=> $this->functions->get_ext_namespace('twig'),
 			));
 		}
 
 		$this->template->assign_vars(array(
+			'PP_NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
+
 			'S_COOKIE_ENABLED'		=> $this->config['cookie_policy_enable'],
 			'S_SHOW_COOKIE_ACCEPT'	=> $this->cookie_set,
 		));
