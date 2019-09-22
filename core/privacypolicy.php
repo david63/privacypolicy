@@ -286,7 +286,7 @@ class privacypolicy
 	 */
 	public function get_user_data_row ($user_id)
 	{
-			// Get the user data
+		// Get the user data
 		$sql = 'SELECT *
 			FROM ' . $this->tables['users'] . '
 			WHERE user_id = ' . $user_id;

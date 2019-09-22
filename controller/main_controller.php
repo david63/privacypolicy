@@ -68,7 +68,7 @@ class main_controller implements main_interface
 	* @param \phpbb\user									$user				User object
 	* @param \phpbb\request\request							$request			Request object
 	* @param \phpbb\controller\helper						$helper				Helper object
-	* @param phpbb_db_driver								$db					The db connection
+	* @param \phpbb_db_driver								$db					The db connection
 	* @param \phpbb\template\template						$template			Template object
 	* @param \phpbb\config\config							$config				Config object
 	* @param \phpbb\language\language						$language			Language object
