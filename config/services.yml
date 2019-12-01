@@ -121,11 +121,11 @@ services:
             - '@dbal.conn'
             - '@template'
             - '%david63.privacypolicy.tables.privacy_lang%'
-            - '%tables%'			
+            - '%tables%'
 
     david63.privacypolicy.autogroups.type.ppaccept:
         class: david63\privacypolicy\conditions\type\ppaccept
-        scope: prototype
+        shared: false
         arguments:
             - '@service_container'
             - '@dbal.conn'

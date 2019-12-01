@@ -68,7 +68,7 @@ class functions
 	public function version_check()
 	{
 		$md_manager 	= $this->ext_manager->create_extension_metadata_manager($this->get_ext_namespace());
-		$versions 		= $this->ext_manager->version_check($md_manager);
+		$versions 		= $this->ext_manager->version_check($md_manager, true);
 		$new_version	= (array_key_exists('current', $versions) ? $versions['current'] : false);
 
 		return $new_version;
