@@ -115,7 +115,7 @@ class privacypolicy
 
 			'EMAIL'						=> $row['user_email'],
 
-			'PRIVACY_POLICY_VERSION'	=> $this->functions->get_this_version(),
+			'PRIVACY_POLICY_VERSION'	=> $this->functions->get_meta('version'),
 
 			'REG_DATE'					=> $this->user->format_date($row['user_regdate']),
 			'REG_IP'					=> $row['user_ip'],
@@ -421,7 +421,7 @@ class privacypolicy
 	public function get_cpf_fields()
 	{
 		$sql = 'SELECT pf.field_name, pl.lang_name
-			FROM ' . $this->tables['profile_fields'] . ' pf, ' . $this->tables['profile_lang'] . ' pl, ' . $this->tables['lang'] . " l
+			FROM ' . $this->tables['profile_fields'] . ' pf, ' . $this->tables['profile_fields_language'] . ' pl, ' . $this->tables['lang'] . " l
 			WHERE pf.field_id  = pl.field_id
 				AND pf.field_privacy_show = 1
 				AND pl.lang_id = l.lang_id
@@ -465,7 +465,7 @@ class privacypolicy
 			),
 			'LEFT_JOIN'	=> array(
 				array(
-					'FROM'	=> array($this->tables['profile_fields_lang']	=> ' pfl',),
+					'FROM'	=> array($this->tables['profile_fields_options_language']	=> ' pfl',),
 					'ON'	=> 'pf.field_id = pfl.field_id',
 				),
 			),

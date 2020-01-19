@@ -27,8 +27,8 @@ class ext extends base
 		// Set globals for use in the language file
 		global $ver_error, $cookie_error;
 
-		// Requires phpBB 3.2.2 or newer.
-		$ver 		= phpbb_version_compare(PHPBB_VERSION, '3.2.2', '>=');
+		// Requires phpBB 3.3.0 or newer.
+		$ver 		= phpbb_version_compare(PHPBB_VERSION, '3.3.0', '>=');
 		// Display a custom warning message if this requirement fails.
 		$ver_error 	= ($ver) ? false : true;
 

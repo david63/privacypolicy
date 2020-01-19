@@ -34,6 +34,25 @@ Buttons
 	top: 0.1em;
 }
 
+.large-button {
+    color: #3300CC;
+    padding: 20px 30px 20px;
+    cursor: pointer;
+    font-size: 20px;
+	background: linear-gradient(to bottom, #6B6B6B 5%, #bab1ba 100%);
+	background-color: #6B6B6B;
+	border-radius: 0.5em;
+	display: inline-block;
+}
+
+.large-button-text {
+	font-size: 12px;
+}
+
+.large-button:hover {
+    	background-color: #4169E1;
+}
+
 
 /* ---------
 Selects
@@ -62,7 +81,7 @@ select, #sk, #sd, #fc, #fb {
 /* ---------
 Text
 --------- */
-.textbox, .textbox2, .inputbox {
+.textbox, .textbox2, .textarea, .inputbox {
     padding: 0.1em 0.625em;
     border: 1px solid #BFBFBF;
     height: 2em;
@@ -71,7 +90,7 @@ Text
     outline: 0;
 }
 
-.textbox, .inputbox {
+.textbox, .inputbox, .textarea {
     box-shadow: 0.1em 0.1em 0 0 #FFF, 0.5em 0.5em 2.5em 0.2em #BBB inset;
 }
 
@@ -82,6 +101,25 @@ hr {
 	border-radius: 0.5em;
 	background-color: #C8C7C4;
 }
+
+pre {
+	font-size: 12px;
+}
+
+a.copy {
+	font-size: 12px;
+	text-align: right;
+	font-weight: bold;
+	color: #FFFFFF;
+	background-color: #0000CC;
+	padding: 4px 50px 0 50px;
+	margin-top: 5px;
+}
+
+.compare-highlight {
+	background-color: #FFFF33;
+}
+
 
 /* ----------
 Radio buttons
@@ -252,7 +290,7 @@ label {
 /* ---------
 Pagination
 --------- */
-.pagination li a, .pagnation li span, li .pagination li a, li .pagnation li span, .pagination li.active span, .pagination .ellipsis span {
+.pagination li a, .pagination li span, li .pagination li a, li .pagination li span, .pagination li.active span, .pagination .ellipsis span {
 	box-shadow: 0.15em 0.2em 0 0 #899599;
 	background: linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
 	background-color: #ededed;
@@ -272,7 +310,7 @@ Pagination
 /* ---------
 Panels
 --------- */
-.head-panel, .head-panel-error, .head-panel-version {
+.head-panel, .head-panel-error, .head-panel-version, .head-panel-noversion {
 	width: auto;
 	height: auto;
 	border-radius: 1em;
@@ -289,7 +327,7 @@ Panels
 	background-color: #ffffff;
 }
 
-.head-panel-error, .head-panel-version {
+.head-panel-error, .head-panel-version, .head-panel-noversion {
 	color: #FFFFFF;
 	text-align: center;
 }
@@ -300,6 +338,10 @@ Panels
 
 .head-panel-version {
 	background-color: #228822;
+}
+
+.head-panel-noversion {
+	background-color: #546CED;
 }
 
 .head-title {
@@ -375,7 +417,7 @@ Tables
 	display: table-header-group;
 }
 
-.table-header-cell, .table-header-cell-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select {
+.table-header-cell, .table-header-cell-left, .table-header-cell-narrow-left, .table-header-cell-right, .table-header-cell-narrow, .table-header-cell-wide, .table-header-cell-select {
 	display: table-cell;
 	padding: 4px 5px;
 	color: #FFFFFF;
@@ -390,7 +432,7 @@ Tables
 	font-weight: bold;
 }
 
-.rtl .table-header-cell, .rtl .table-header-cell-left, .rtl .table-header-cell-right, .rtl .table-header-cell-select {
+.rtl .table-header-cell, .rtl .table-header-cell-left, .rtl .table-header-cell-narrow-left, .rtl .table-header-cell-right, .rtl .table-header-cell-select {
 	text-align: right;
 }
 
@@ -398,9 +440,20 @@ Tables
 	border-top-left-radius: 1em;
 }
 
+.table-header-cell-narrow-left {
+	border-top-left-radius: 1em;
+	width: 10px;
+}
+
 .rtl .table-header-cell-left {
 	border-top-right-radius: 1em;
 	border-top-left-radius: 0;
+}
+
+.rtl .table-header-cell-narrow-left {
+	border-top-right-radius: 1em;
+	border-top-left-radius: 0;
+	width: 10px;
 }
 
 .table-header-cell-right {
@@ -452,7 +505,6 @@ Tables
 	width: auto !important;
 	min-width: inherit;
 	background-color: #F9F9F9;
-	margin: auto;
 	display: table-row;
 	position: relative;
 }
@@ -462,7 +514,7 @@ Tables
 	width: 700px;
 }
 
-.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre {
+.table-body-cell, .table-body-cell-bold, .table-body-cell-select, .table-body-cell-span, .table-body-cell-narrow, .table-body-cell-wide, .table-body-cell-centre, .table-body-cell-right {
 	display: table-cell;
 	text-align: left;
 	vertical-align: middle;
@@ -478,6 +530,8 @@ Tables
 
 .table-body-cell-bold {
 	font-weight: bold;
+	text-align: right;
+	padding: 4px 5px 4px 0;
 }
 
 .table-body-cell-span {
@@ -496,6 +550,17 @@ Tables
 
 .table-body-cell-centre {
 	text-align: center;
+}
+
+.table-body-cell-right {
+	text-align: right;
+	padding: 4px 5px 4px 0;
+}
+
+.table-body-cell-tiny {
+	width: 10px;
+	text-align: center;
+	padding: 0;
 }
 
 .shaded {
@@ -603,7 +668,7 @@ PayPal button
 	font-style: italic;
 	font-weight: bold;
 	font-size: 22px;
-	box-shadow: 0.2em 0.2em 0em 0em #899599;
+	box-shadow: 0.2em 0.2em 0 0 #899599;
 }
 
 .paypal_btn:hover {
@@ -630,6 +695,7 @@ td.showkey {
 tr.rowkey {
 	display: none;
 }
+
 
 /* ---------
 * disableext

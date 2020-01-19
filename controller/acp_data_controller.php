@@ -235,7 +235,7 @@ class acp_data_controller implements acp_data_interface
 			'S_BACK'			=> $back,
 			'S_VERSION_CHECK'	=> $this->functions->version_check(),
 
-			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
+			'VERSION_NUMBER'	=> $this->functions->get_meta('version'),
 		));
 
 		$this->template->assign_vars(array(
@@ -342,7 +342,7 @@ class acp_data_controller implements acp_data_interface
 				{
 					// Get the userid from the username
 					$sql = 'SELECT user_id
-						FROM ' . USERS_TABLE . "
+						FROM ' . $this->tables['users'] . "
 							WHERE username_clean = '" . $this->db->sql_escape(utf8_clean_string($privacy_username)) . "'";
 
 					$result 	= $this->db->sql_query($sql);
@@ -377,7 +377,7 @@ class acp_data_controller implements acp_data_interface
 			if ($this->request->is_set_post('accept'))
 			{
 				// Set the accept date in the Users table for this user
-				$sql = 'UPDATE ' . USERS_TABLE . '
+				$sql = 'UPDATE ' . $this->tables['users'] . '
 					SET user_accept_date = ' . time() . '
 					WHERE user_id = ' . (int) $user_id;
 
@@ -396,7 +396,7 @@ class acp_data_controller implements acp_data_interface
 			if ($this->request->is_set_post('unaccept'))
 			{
 				// Reset the accept date in the Users table for this user
-				$sql = 'UPDATE ' . USERS_TABLE . '
+				$sql = 'UPDATE ' . $this->tables['users'] . '
 					SET user_accept_date = 0
 					WHERE user_id = ' . (int) $user_id;
 
@@ -427,7 +427,7 @@ class acp_data_controller implements acp_data_interface
 			'S_ERROR'			=> $error,'S_BACK'			=> $back,
 			'S_VERSION_CHECK'	=> $this->functions->version_check(),
 
-			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
+			'VERSION_NUMBER'	=> $this->functions->get_meta('version'),
 		));
 
 		$this->template->assign_vars(array(
@@ -452,7 +452,7 @@ class acp_data_controller implements acp_data_interface
 		$session_times	= array();
 
 		$sql = 'SELECT session_user_id, MAX(session_time) AS session_time
-			FROM ' . SESSIONS_TABLE . '
+			FROM ' . $this->tables['sessions'] . '
 			WHERE session_time >= ' . (time() - $this->config['session_length']) . '
 				AND ' . $this->db->sql_in_set('session_user_id', $user_id) . '
 			GROUP BY session_user_id';
@@ -467,7 +467,7 @@ class acp_data_controller implements acp_data_interface
 		$this->db->sql_freeresult($result);
 
 		$sql = 'SELECT user_lastvisit
-			FROM ' . USERS_TABLE . '
+			FROM ' . $this->tables['users'] . '
 			WHERE ' . $this->db->sql_in_set('user_id', $user_id);
 
 		$result = $this->db->sql_query($sql);

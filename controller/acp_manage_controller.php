@@ -98,6 +98,7 @@ class acp_manage_controller implements acp_manage_interface
 	{
 		// Add the language files
 		$this->language->add_lang('acp_privacypolicy', $this->functions->get_ext_namespace());
+		$this->language->add_lang('acp_common', $this->functions->get_ext_namespace());
 
 		// Check if Tapatalk is installed
 		$this->privacypolicy->tapatalk();
@@ -148,8 +149,12 @@ class acp_manage_controller implements acp_manage_interface
 		}
 
 		// Template vars for header panel
+		$version_data	= $this->functions->version_check();
+
 		$this->template->assign_vars(array(
-			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
+			'DOWNLOAD'			=> (array_key_exists('download', $version_data)) ? '<a href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
+
+ 			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
 			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
 
 			'HEAD_TITLE'		=> $this->language->lang('COOKIE_POLICY'),
@@ -158,9 +163,9 @@ class acp_manage_controller implements acp_manage_interface
 			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
 			'S_BACK'			=> $back,
-			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+			'S_VERSION_CHECK'	=> (array_key_exists('current', $version_data)) ? $version_data['current'] : false,
 
-			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
+			'VERSION_NUMBER'	=> $this->functions->get_meta('version'),
 		));
 
 		// Set output vars for display in the template

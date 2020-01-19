@@ -8,19 +8,12 @@
 	font-weight: bold;
 	text-align: center;
 	height: auto;
-	display: inline-block;
 	z-index: 10;
 	text-decoration: none;
 	padding: 10px 10px 10px 10px;
 	position: fixed;
-	left: auto;
-	right: auto;
-	width: 100%;
 	box-sizing: border-box;
 	opacity: 0.7;
-	max-width: 1152px;
-	min-width: 625px;
-	margin: 0 auto;
 	border-radius: 8px 8px 8px 8px;
 }
 

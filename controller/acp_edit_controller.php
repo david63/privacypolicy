@@ -149,12 +149,17 @@ class acp_edit_controller implements acp_edit_interface
 		// Get the text data
 		$text_data = $this->privacypolicy_lang->get_text($lang_name, $lang_id);
 
-		$editable_text     	= $text_data['privacy_lang_text'];
-		$privacy_bitfield  	= $text_data['privacy_text_bbcode_bitfield'];
-		$privacy_flags     	= $text_data['privacy_text_bbcode_options'];
-		$privacy_id			= $text_data['privacy_id'];
-		$privacy_lang_name 	= $text_data['privacy_lang_name'];
-		$privacy_uid       	= $text_data['privacy_text_bbcode_uid'];
+		$editable_text = $privacy_bitfield = $privacy_flags = $privacy_id = $privacy_lang_name = $privacy_uid = $local_lang_name = '';
+
+		if ($text_data)
+		{
+			$editable_text     	= $text_data['privacy_lang_text'];
+			$privacy_bitfield  	= $text_data['privacy_text_bbcode_bitfield'];
+			$privacy_flags     	= $text_data['privacy_text_bbcode_options'];
+			$privacy_id			= $text_data['privacy_id'];
+			$privacy_lang_name 	= $text_data['privacy_lang_name'];
+			$privacy_uid       	= $text_data['privacy_text_bbcode_uid'];
+		}
 
 		// Load the selects
 		$this->privacypolicy_lang->get_languages();
@@ -314,8 +319,12 @@ class acp_edit_controller implements acp_edit_interface
 		}
 
 		// Template vars for header panel
+		$version_data	= $this->functions->version_check();
+
 		$this->template->assign_vars(array(
-			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
+			'DOWNLOAD'			=> (array_key_exists('download', $version_data)) ? '<a href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
+
+ 			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
 			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),
 
 			'HEAD_TITLE'		=> $this->language->lang('POLICY_EDIT'),
@@ -324,9 +333,9 @@ class acp_edit_controller implements acp_edit_interface
 			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
 			'S_BACK'			=> $back,
-			'S_VERSION_CHECK'	=> $this->functions->version_check(),
+			'S_VERSION_CHECK'	=> (array_key_exists('current', $version_data)) ? $version_data['current'] : false,
 
-			'VERSION_NUMBER'	=> $this->functions->get_this_version(),
+			'VERSION_NUMBER'	=> $this->functions->get_meta('version'),
 		));
 
 		$this->template->assign_vars(array(

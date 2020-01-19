@@ -108,7 +108,7 @@ class ucp_controller implements ucp_interface
 
 			'NAMESPACE'			=> $this->functions->get_ext_namespace('twig'),
 
-			'S_FORM_ENCTYPE'	=> ' enctype="multipart/form-data"',
+			'S_FORM_ENCTYPE'	=> 'enctype="multipart/form-data"',
 			'S_UCP_ACTION'		=> $this->u_action,
 
 			'U_REMOVE_ME'		=> $this->config['privacy_policy_remove'],

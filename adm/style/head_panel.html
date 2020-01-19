@@ -1,5 +1,5 @@
 {% include 'overall_header.html' %}
-{% INCLUDECSS '@' ~ NAMESPACE ~ '/admin_forms.css' %}
+{% INCLUDECSS '@' ~ NAMESPACE ~ '/css/admin_forms.css' %}
 
 <a name="maincontent"></a>
 
@@ -26,8 +26,14 @@
 {% endif %}
 
 {% if S_VERSION_CHECK %}
-	<div class="head-panel-version">
-		<div class="head-title">{{ lang('NEW_VERSION') }}</div>
-		<div class="head-description">{{ lang('NEW_VERSION_EXPLAIN') }}</div>
-	</div>
+	{% if S_VERSION_CHECK == 'fail' %}
+		<div class="head-panel-noversion">
+			<div class="head-description">{{ lang('NO_VERSION_EXPLAIN') }}</div>
+		</div>
+	{% else %}
+		<div class="head-panel-version">
+			<div class="head-title">{{ lang('NEW_VERSION', S_VERSION_CHECK) }}</div>
+			<div class="head-description">{{ lang('NEW_VERSION_EXPLAIN', S_VERSION_CHECK, DOWNLOAD) }}</div>
+		</div>
+	{% endif %}
 {% endif %}

@@ -89,9 +89,6 @@ $lang = array_merge($lang, array(
 	'CUSTOM_PAGE_COLOURS'					=> 'Custom policy page options',
 	'CUSTOM_PAGE_COLOURS_EXPLAIN'			=> '<strong>Here you can change the colours and/or set rounded corners to suit your style for the policy page.</strong>',
 
-	'NEW_VERSION'							=> 'New Version',
-	'NEW_VERSION_EXPLAIN'					=> 'There is a newer version of this extension available.',
-
 	'PIXELS'								=> 'px',
 	'POLICIES'								=> 'Policies',
 	'PRIVACY_POLICY_ANONYMISE'				=> 'Anonymise IP addresses',
@@ -111,16 +108,4 @@ $lang = array_merge($lang, array(
 	'PRIVACY_POLICY_REMOVE_EXPLAIN'			=> 'Display on the “Privacy data” tab in the user’s UCP the mailto link to request the removal of their account.',
 	'PRIVACY_POLICY_RESET'					=> 'Reset policy acceptance',
 	'PRIVACY_POLICY_RESET_EXPLAIN'			=> 'Reset the policy acceptance in order that members will have to accept the Privacy policy again.<br>Once this has been run then you will need to set “<strong>Force Privacy acceptance</strong>” to “<strong>Yes</strong>”.',
-
-	'VERSION'								=> 'Version',
-));
-
-// Donate
-$lang = array_merge($lang, array(
-	'DONATE'					=> 'Donate',
-	'DONATE_EXTENSIONS'			=> 'Donate to my extensions',
-	'DONATE_EXTENSIONS_EXPLAIN'	=> 'This extension, as with all of my extensions, is totally free of charge. If you have benefited from using it then please consider making a donation by clicking the PayPal donation button opposite - I would appreciate it. I promise that there will be no spam nor requests for further donations, although they would always be welcome.',
-
-	'PAYPAL_BUTTON'				=> 'Donate with PayPal button',
-	'PAYPAL_TITLE'				=> 'PayPal - The safer, easier way to pay online!',
 ));

@@ -18,7 +18,7 @@
 			}
 
 			$('.cookieAcceptBox').addClass('cookie-box');
-			$('.cookieAcceptBox').html(cookieText + '</a> <a href="#">' + acceptText + '</a>');
+			$('.cookieAcceptBox').html(cookieText + '</a> <a href=>' + acceptText + '</a>');
 
 			// Set the css elements from the variables
 			$('.cookieAcceptBox').css({
@@ -33,11 +33,8 @@
         	$('.cookieAcceptBox').fadeIn(300);
         	$('.cookieAcceptBox a').click(function ()
 			{
-				if ($(this).is('[href*=#]'))
-				{
-            		$(".cookieAcceptBox").fadeOut(300);
-            		setCookie(cookieName);
-				}
+            	$(".cookieAcceptBox").fadeOut(300);
+            	setCookie(cookieName);
 				location.reload(true);
         	});
     	}

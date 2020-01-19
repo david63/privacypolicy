@@ -1,6 +1,5 @@
 imports:
     - { resource: tables.yml }
-    - { resource: phpbb_tables.yml }
 
 services:
     david63.privacypolicy.listener:

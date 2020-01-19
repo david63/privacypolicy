@@ -273,6 +273,9 @@ class privacypolicy_lang
 
 		$this->db->sql_freeresult($result);
 
-		return $row['lang_local_name'];
+		if ($row)
+		{
+			return $row['lang_local_name'];
+		}
 	}
 }
