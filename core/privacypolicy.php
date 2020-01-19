@@ -289,7 +289,7 @@ class privacypolicy
 		// Get the user data
 		$sql = 'SELECT *
 			FROM ' . $this->tables['users'] . '
-			WHERE user_id = ' . $user_id;
+			WHERE user_id = ' . (int) $user_id;
 
 		$result = $this->db->sql_query($sql);
 		$row	= $this->db->sql_fetchrow($result);
@@ -317,7 +317,7 @@ class privacypolicy
 		{
 			$sql = 'SELECT poster_ip
 				FROM ' . $this->tables['posts'] . '
-				WHERE poster_id = ' . $user_id . "
+				WHERE poster_id = ' . (int) $user_id . "
 				GROUP BY poster_ip";
 
 			$result = $this->db->sql_query($sql);
@@ -393,7 +393,7 @@ class privacypolicy
 					'ON'	=> 'u.user_id = pfd.user_id',
 				),
 			),
-			'WHERE' => "u.user_id = '" . $user_id . "'",
+			'WHERE' => "u.user_id = '" . (int) $user_id . "'",
 		));
 
 		$result 		= $this->db->sql_query($sql);
