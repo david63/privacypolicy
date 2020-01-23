@@ -55,16 +55,16 @@
 		expireDate.setTime(expireDate.getTime() + expireTime);
         expire = '; expires=' + expireDate.toGMTString();
 
-		cookieData = cookieName + '=1' + expire + '; path=' + cookiePath + '; ';
+		cookieData = cookieName + '=1' + expire + '; path=' + cookiePath;
 
-		if (cookieDomain != false || cookieDomain == '127.0.0.1' || cookieDomain.indexOf('.') == false)
+		if (cookieDomain != false || cookieDomain == '127.0.0.1' || cookieDomain.indexOf('.') === false)
 		{
-			cookieData = cookieData + 'domain=' + cookieDomain + ';';
+			cookieData = cookieData + '; domain=' + cookieDomain;
 		}
 
 		if (cookieSecure != false)
 		{
-			cookieData = cookieData + 'secure; HttpOnly';
+			cookieData = cookieData + '; secure; HttpOnly';
 		}
 
     	document.cookie = cookieData;
