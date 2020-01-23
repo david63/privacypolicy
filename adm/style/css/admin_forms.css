@@ -357,6 +357,13 @@ Panels
 	font-size: 0.90em;
 }
 
+.head-description .download {
+	color: #FFFF66;
+	text-decoration: none;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
 fieldset {
 	border-radius: 1em;
 	box-shadow: 0.15em 0.2em 0 0 #899599;

@@ -11,10 +11,11 @@
 		{
         	var address = $(this).attr('href');
 			var policy = ~address.indexOf('privacypolicy');
+			var cookies =  ~address.indexOf('ucp');
 
 			if (address.substring(0, 4) != 'http')
 			{
-				if (policy == 0)
+				if (policy == 0 && cookies == 0)
 				{
 					$('ul').click(function(event)
 					{

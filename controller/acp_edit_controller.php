@@ -322,7 +322,7 @@ class acp_edit_controller implements acp_edit_interface
 		$version_data	= $this->functions->version_check();
 
 		$this->template->assign_vars(array(
-			'DOWNLOAD'			=> (array_key_exists('download', $version_data)) ? '<a href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
+			'DOWNLOAD'			=> (array_key_exists('download', $version_data)) ? '<a class="download" href =' . $version_data['download'] . '>' . $this->language->lang('NEW_VERSION_LINK') . '</a>' : '',
 
 			'ERROR_TITLE'		=> $this->language->lang('TAPATALK_INSTALLED'),
 			'ERROR_DESCRIPTION'	=> $this->language->lang('TAPATALK_INSTALLED_EXPLAIN'),

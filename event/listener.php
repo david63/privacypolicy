@@ -18,11 +18,11 @@ use phpbb\config\config;
 use phpbb\auth\auth;
 use phpbb\template\template;
 use phpbb\user;
-use phpbb\log\log;
 use phpbb\controller\helper;
 use phpbb\request\request;
 use phpbb\request\request_interface;
 use phpbb\language\language;
+use phpbb\session;
 use david63\privacypolicy\core\privacypolicy_lang;
 use david63\privacypolicy\core\privacypolicy;
 use phpbb\autogroups\conditions\manager;
@@ -45,9 +45,6 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\user */
 	protected $user;
 
-	/** @var \phpbb\log */
-	protected $log;
-
 	/** @var \phpbb\controller\helper */
 	protected $helper;
 
@@ -56,6 +53,9 @@ class listener implements EventSubscriberInterface
 
 	/** @var \phpbb\language\language */
 	protected $language;
+
+	/** @var \phpbb\session */
+	protected $session;
 
 	/* @var \david63\privacypolicy\core\privacypolicy_lang */
 	protected $privacypolicy_lang;
@@ -76,10 +76,10 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\auth\auth 								$auth				Auth object
 	* @param \phpbb\template\template						$template			Template object
 	* @param \phpbb\user                					$user				User object
-	* @param \phpbb\log\log									$log				phpBB log
 	* @param \phpbb\controller\helper						$helper				Helper object
 	* @param \phpbb\request\request							$request			Request object
 	* @param \phpbb\language\language						$language			Language object
+	* @param \phpbb\session									$session			Session object
 	* @param \david63\privacypolicy\core\privacypolicy_lang	privacypolicy_lang	Methods for the extension
 	* @param \david63\privacypolicy\core\functions			$functions			Functions for the extension
 	* @param \phpbb\autogroups\conditions\manage			autogroup_manager	Autogroup manager
@@ -87,16 +87,16 @@ class listener implements EventSubscriberInterface
 	* @return \david63\privacypolicy\event\listener
 	* @access public
 	*/
-	public function __construct(config $config, auth $auth, template $template, user $user, log $log, helper $helper, request $request, language $language, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, functions $functions, manager $autogroup_manager = null)
+	public function __construct(config $config, auth $auth, template $template, user $user, helper $helper, request $request, language $language, session $session, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, functions $functions, manager $autogroup_manager = null)
 	{
 		$this->config				= $config;
 		$this->auth					= $auth;
 		$this->template				= $template;
 		$this->user					= $user;
-		$this->log					= $log;
 		$this->helper				= $helper;
 		$this->request				= $request;
 		$this->language				= $language;
+		$this->session 				= $session;
 		$this->privacypolicy_lang	= $privacypolicy_lang;
 		$this->privacypolicy		= $privacypolicy;
 		$this->functions			= $functions;
@@ -132,7 +132,18 @@ class listener implements EventSubscriberInterface
 			'core.modify_submit_post_data'						=> 'anonymise_posting_ip',
 			'core.viewtopic_modify_poll_data'					=> 'anonymise_posting_ip',
 			'core.submit_pm_before'								=> 'anonymise_pm_ip',
+			'core.ucp_delete_cookies'							=> 'reset_cookie',
 		);
+	}
+
+	public function reset_cookie($event)
+	{
+		if ($event['cookie_name'] == 'ca')
+		{
+			//$this->config->set('a_test', 'zaqwertgvcx', true);
+
+			$this->session->set_cookie('ca', '', time() - 31536000);
+		}
 	}
 
 	/**
@@ -181,8 +192,11 @@ class listener implements EventSubscriberInterface
 				'COOKIE_BOX_HREF_COLOUR'	=> $this->config['cookie_box_href_colour'],
 				'COOKIE_BOX_TOP'			=> $this->config['cookie_box_top'],
 				'COOKIE_BOX_TXT_COLOUR'		=> $this->config['cookie_box_txt_colour'],
+				'COOKIE_DOMAIN'				=> $this->config['cookie_domain'],
 				'COOKIE_EXPIRES'			=> $this->config['cookie_expire'],
 				'COOKIE_NAME'				=> $this->config['cookie_name'],
+				'COOKIE_PATH'		   		=> $this->config['cookie_path'],
+				'COOKIE_SECURE'				=> $this->config['cookie_secure'],
 			));
 		}
 

@@ -9,15 +9,19 @@ services:
             - '@auth'
             - '@template'
             - '@user'
-            - '@log'
             - '@controller.helper'
             - '@request'
             - '@language'
+            - '@?phpbb.session'
             - '@david63.privacypolicy.core.privacypolicy_lang'
             - '@david63.privacypolicy.core.privacypolicy'
             - '@david63.privacypolicy.core.functions'
         tags:
             - { name: event.listener }
+
+    phpbb.session:
+        class: phpbb\session
+        arguments:
 
     david63.privacypolicy.main.controller:
         class: david63\privacypolicy\controller\main_controller

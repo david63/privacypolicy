@@ -43,18 +43,31 @@
 	function setCookie(cookieName)
 	{
 		var expire		= '';
+		var cookieData	= '';
         var expireDate	= new Date();
 		var expireTime	= 60 * 60 * 24 * 365 * 1000; // Set default to one year
 
-		if (cookieExpires == false)
+		if (cookieExpires == false )
 		{
 			expireTime = expireTime * 10; // Set to ten years
 		}
 
-        expireDate.setTime(expireDate.getTime() + expireTime);
+		expireDate.setTime(expireDate.getTime() + expireTime);
         expire = '; expires=' + expireDate.toGMTString();
 
-    	document.cookie = cookieName + '=1' + expire + '; path=/';
+		cookieData = cookieName + '=1' + expire + '; path=' + cookiePath + '; ';
+
+		if (cookieDomain != false || cookieDomain == '127.0.0.1' || cookieDomain.indexOf('.') == false)
+		{
+			cookieData = cookieData + 'domain=' + cookieDomain + ';';
+		}
+
+		if (cookieSecure != false)
+		{
+			cookieData = cookieData + 'secure; HttpOnly';
+		}
+
+    	document.cookie = cookieData;
 
 		return null;
 	}
