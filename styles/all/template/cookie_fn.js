@@ -18,7 +18,7 @@
 			}
 
 			$('.cookieAcceptBox').addClass('cookie-box');
-			$('.cookieAcceptBox').html(cookieText + '</a> <a href=>' + acceptText + '</a>');
+			$('.cookieAcceptBox').html(cookieText + '</a> <a href=>[ ' + acceptText + ' ]</a>');
 
 			// Set the css elements from the variables
 			$('.cookieAcceptBox').css({
@@ -64,7 +64,7 @@
 
 		if (cookieSecure != false)
 		{
-			cookieData = cookieData + '; secure; HttpOnly';
+			cookieData = cookieData + '; secure';
 		}
 
     	document.cookie = cookieData;

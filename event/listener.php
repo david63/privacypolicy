@@ -136,16 +136,6 @@ class listener implements EventSubscriberInterface
 		);
 	}
 
-	public function reset_cookie($event)
-	{
-		if ($event['cookie_name'] == 'ca')
-		{
-			//$this->config->set('a_test', 'zaqwertgvcx', true);
-
-			$this->session->set_cookie('ca', '', time() - 31536000);
-		}
-	}
-
 	/**
 	* Set the template variables
 	*
@@ -457,6 +447,22 @@ class listener implements EventSubscriberInterface
 			$from_user_ip 			= $this->config['privacy_policy_anonymise_ip'];
 			$data['from_user_ip'] 	= $from_user_ip;
 			$event['data'] 			= $data;
+		}
+	}
+
+	/**
+	* Delete the cookie acceptance cookie
+	*
+	* @param $event
+	*
+	* @return null
+	* @access public
+	*/
+	public function reset_cookie($event)
+	{
+		if ($event['cookie_name'] == 'ca')
+		{
+			$this->session->set_cookie('ca', '', time() - 31536000);
 		}
 	}
 }
