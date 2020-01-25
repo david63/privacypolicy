@@ -58,15 +58,11 @@ class acp_edit_controller implements acp_edit_interface
 	/** @var \david63\privacypolicy\core\privacypolicy */
 	protected $privacypolicy;
 
-	/**
-	* The database table the privacy lang data is stored in
-	*
-	* @var string
-	*/
-	protected $privacy_lang_table;
-
 	/** @var \david63\privacypolicy\core\functions */
 	protected $functions;
+
+	/** @var string phpBB tables */
+	protected $tables;
 
 	/** @var string Custom form action */
 	protected $u_action;
@@ -85,13 +81,12 @@ class acp_edit_controller implements acp_edit_interface
 	 * @param string										 	$php_ext            phpBB extension
 	 * @param \david63\privacypolicy\core\privacypolicy_lang 	privacypolicy_lang  Methods for the extension
 	 * @param \david63\privacypolicy\core\privacypolicy			privacypolicy		Methods for the extension
-	 * @param string											$privacy_lang_table	Name of the table used to store log searches data
 	 * @param \david63\privacypolicy\core\functions				$functions			Functions for the extension
 	 *
 	 * @return \david63\privacypolicy\controller\acp_edit_controller
 	 * @access public
 	 */
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, $privacy_lang_table, functions $functions)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, $root_path, $php_ext, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, functions $functions, $tables)
 	{
 		$this->config             	= $config;
 		$this->request            	= $request;
@@ -104,8 +99,8 @@ class acp_edit_controller implements acp_edit_interface
 		$this->php_ext				= $php_ext;
 		$this->privacypolicy_lang 	= $privacypolicy_lang;
 		$this->privacypolicy		= $privacypolicy;
-		$this->privacy_lang_table	= $privacy_lang_table;
 		$this->functions			= $functions;
+		$this->tables				= $tables;
 	}
 
 	/**
@@ -238,7 +233,7 @@ class acp_edit_controller implements acp_edit_interface
 						'privacy_text_bbcode_options'	=> $privacy_flags,
 					);
 
-					$sql = 'INSERT INTO ' . $this->privacy_lang_table . ' ' . $this->db->sql_build_array('INSERT', $privacy_sql);
+					$sql = 'INSERT INTO ' . $this->tables['privacy_lang'] . ' ' . $this->db->sql_build_array('INSERT', $privacy_sql);
 
 					$this->db->sql_query($sql);
 
@@ -258,7 +253,7 @@ class acp_edit_controller implements acp_edit_interface
 						'privacy_text_bbcode_options'	=> $privacy_flags,
 					);
 
-					$sql = 'UPDATE ' . $this->privacy_lang_table . '
+					$sql = 'UPDATE ' . $this->tables['privacy_lang'] . '
 						SET ' . $this->db->sql_build_array('UPDATE', $privacy_sql) . "
 						WHERE privacy_id = $privacy_id";
 

@@ -115,8 +115,6 @@ class privacypolicy
 
 			'EMAIL'						=> $row['user_email'],
 
-			'PRIVACY_POLICY_VERSION'	=> $this->functions->get_meta('version'),
-
 			'REG_DATE'					=> $this->user->format_date($row['user_regdate']),
 			'REG_IP'					=> $row['user_ip'],
 

@@ -35,37 +35,28 @@ class privacypolicy_lang
 	/** @var \phpbb\template\template */
 	protected $template;
 
-	/**
-	* The database table the privacy lang data is stored in
-	*
-	* @var string
-	*/
-	protected $privacy_lang_table;
-
 	/** @var string phpBB tables */
 	protected $tables;
 
 	/**
 	* Constructor for privacypolicy
 	*
-	* @param \phpbb\config\config		$config					Config object
-	* @param \phpbb\user				$user					User object
-	* @param \phpbb\language\language	$language				Language object
-	* @param \phpbb_db_driver			$db						The db connection
-	* @param \phpbb\template\template	$template				Template object
-	* @param string						$privacy_lang_table		Name of the table for this extension
-	* @param array						$tables					phpBB db tables
+	* @param \phpbb\config\config		$config		Config object
+	* @param \phpbb\user				$user		User object
+	* @param \phpbb\language\language	$language	Language object
+	* @param \phpbb_db_driver			$db			The db connection
+	* @param \phpbb\template\template	$template	Template object
+	* @param array						$tables		phpBB db tables
 	*
 	* @access public
 	*/
-	public function __construct(config $config, user $user, language $language, driver_interface $db, template $template, $privacy_lang_table, $tables)
+	public function __construct(config $config, user $user, language $language, driver_interface $db, template $template, $tables)
 	{
 		$this->config				= $config;
 		$this->user					= $user;
 		$this->language 			= $language;
 		$this->db					= $db;
 		$this->template				= $template;
-		$this->privacy_lang_table	= $privacy_lang_table;
 		$this->tables				= $tables;
 	}
 
@@ -99,7 +90,7 @@ class privacypolicy_lang
 		}
 
 		$sql = 'SELECT privacy_lang_text
-			FROM ' . $this->privacy_lang_table . '
+			FROM ' . $this->tables['privacy_lang'] . '
 				WHERE privacy_lang_name = ' . "'$lang_name'" . '
 				AND privacy_lang_id = ' . "'$lang_id'";
 
@@ -120,7 +111,7 @@ class privacypolicy_lang
 	public function validate_lang($lang_name, $lang_id)
 	{
 		$sql = 'SELECT privacy_lang_text
-			FROM ' . $this->privacy_lang_table . '
+			FROM ' . $this->tables['privacy_lang'] . '
 				WHERE privacy_lang_name = ' . "'$lang_name'" . '
 				AND privacy_lang_id = ' . "'$lang_id'";
 
@@ -169,7 +160,7 @@ class privacypolicy_lang
 		}
 
 		$sql = 'SELECT *
-			FROM ' . $this->privacy_lang_table . '
+			FROM ' . $this->tables['privacy_lang'] . '
 				WHERE privacy_lang_name = ' . "'$lang_name'" . '
 				AND privacy_lang_id = ' . "'$lang_id'";
 
@@ -190,7 +181,7 @@ class privacypolicy_lang
 	public function get_description($lang_name, $lang_id)
 	{
 		$sql = 'SELECT privacy_lang_description
-			FROM ' . $this->privacy_lang_table . '
+			FROM ' . $this->tables['privacy_lang'] . '
 				WHERE privacy_lang_name = ' . "'$lang_name'" . '
 				AND privacy_lang_id = ' . "'$lang_id'";
 
@@ -211,7 +202,7 @@ class privacypolicy_lang
 	public function get_text_names()
 	{
 		$sql = 'SELECT privacy_lang_name, privacy_lang_description
-			FROM ' . $this->privacy_lang_table . '
+			FROM ' . $this->tables['privacy_lang'] . '
 			ORDER BY privacy_lang_description ASC';
 
 		$result = $this->db->sql_query($sql);

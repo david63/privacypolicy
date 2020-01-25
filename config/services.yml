@@ -12,16 +12,11 @@ services:
             - '@controller.helper'
             - '@request'
             - '@language'
-            - '@?phpbb.session'
             - '@david63.privacypolicy.core.privacypolicy_lang'
             - '@david63.privacypolicy.core.privacypolicy'
             - '@david63.privacypolicy.core.functions'
         tags:
             - { name: event.listener }
-
-    phpbb.session:
-        class: phpbb\session
-        arguments:
 
     david63.privacypolicy.main.controller:
         class: david63\privacypolicy\controller\main_controller
@@ -68,8 +63,8 @@ services:
             - '%core.php_ext%'
             - '@david63.privacypolicy.core.privacypolicy_lang'
             - '@david63.privacypolicy.core.privacypolicy'
-            - '%david63.privacypolicy.tables.privacy_lang%'
             - '@david63.privacypolicy.core.functions'
+            - '%tables%'
 
     david63.privacypolicy.acp.data.controller:
         class: david63\privacypolicy\controller\acp_data_controller
@@ -123,7 +118,6 @@ services:
             - '@language'
             - '@dbal.conn'
             - '@template'
-            - '%david63.privacypolicy.tables.privacy_lang%'
             - '%tables%'
 
     david63.privacypolicy.autogroups.type.ppaccept:

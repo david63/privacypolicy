@@ -22,7 +22,6 @@ use phpbb\controller\helper;
 use phpbb\request\request;
 use phpbb\request\request_interface;
 use phpbb\language\language;
-use phpbb\session;
 use david63\privacypolicy\core\privacypolicy_lang;
 use david63\privacypolicy\core\privacypolicy;
 use phpbb\autogroups\conditions\manager;
@@ -54,9 +53,6 @@ class listener implements EventSubscriberInterface
 	/** @var \phpbb\language\language */
 	protected $language;
 
-	/** @var \phpbb\session */
-	protected $session;
-
 	/* @var \david63\privacypolicy\core\privacypolicy_lang */
 	protected $privacypolicy_lang;
 
@@ -79,7 +75,6 @@ class listener implements EventSubscriberInterface
 	* @param \phpbb\controller\helper						$helper				Helper object
 	* @param \phpbb\request\request							$request			Request object
 	* @param \phpbb\language\language						$language			Language object
-	* @param \phpbb\session									$session			Session object
 	* @param \david63\privacypolicy\core\privacypolicy_lang	privacypolicy_lang	Methods for the extension
 	* @param \david63\privacypolicy\core\functions			$functions			Functions for the extension
 	* @param \phpbb\autogroups\conditions\manage			autogroup_manager	Autogroup manager
@@ -87,7 +82,7 @@ class listener implements EventSubscriberInterface
 	* @return \david63\privacypolicy\event\listener
 	* @access public
 	*/
-	public function __construct(config $config, auth $auth, template $template, user $user, helper $helper, request $request, language $language, session $session, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, functions $functions, manager $autogroup_manager = null)
+	public function __construct(config $config, auth $auth, template $template, user $user, helper $helper, request $request, language $language, privacypolicy_lang $privacypolicy_lang, privacypolicy $privacypolicy, functions $functions, manager $autogroup_manager = null)
 	{
 		$this->config				= $config;
 		$this->auth					= $auth;
@@ -96,7 +91,6 @@ class listener implements EventSubscriberInterface
 		$this->helper				= $helper;
 		$this->request				= $request;
 		$this->language				= $language;
-		$this->session 				= $session;
 		$this->privacypolicy_lang	= $privacypolicy_lang;
 		$this->privacypolicy		= $privacypolicy;
 		$this->functions			= $functions;
@@ -236,6 +230,12 @@ class listener implements EventSubscriberInterface
 
 			// Disable phpBB Cookie Notice
 			$this->template->assign_var('S_COOKIE_NOTICE', false);
+
+			// Let's remove the footer login box
+			if (!$this->cookie_set)
+			{
+				$this->template->assign_var('S_IS_BOT', true);
+			}
 		}
 	}
 
@@ -462,7 +462,7 @@ class listener implements EventSubscriberInterface
 	{
 		if ($event['cookie_name'] == 'ca')
 		{
-			$this->session->set_cookie('ca', '', time() - 31536000);
+			$this->user->set_cookie('ca', '', time() - 31536000);
 		}
 	}
 }
