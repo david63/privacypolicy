@@ -33,7 +33,7 @@ class m4_acp_modules extends migration
 	*/
 	public function update_data()
 	{
-		$update_data = array();
+		$update_data = [];
 
 		// Add the ACP modules
 		$update_data[] = array('module.add', array('acp', 'ACP_CAT_DOT_MODS', 'PRIVACY_POLICY'));

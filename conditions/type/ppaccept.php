@@ -61,7 +61,7 @@ class ppaccept extends base
 	 * @return array Array of users ids as keys and their condition data as values
 	 * @access public
 	 */
-	public function get_users_for_condition($options = array())
+	public function get_users_for_condition($options = [])
 	{
 		// The user data this condition needs to check
 		$condition_data = array(
@@ -70,7 +70,7 @@ class ppaccept extends base
 
 		// Merge default options, empty user array as the default
 		$options = array_merge(array(
-			'users'		=> array(),
+			'users'		=> [],
 		), $options);
 
 		$sql_array = array(
@@ -92,7 +92,7 @@ class ppaccept extends base
 		$sql 	= $this->db->sql_build_query('SELECT_DISTINCT', $sql_array);
 		$result = $this->db->sql_query($sql);
 
-		$user_data = array();
+		$user_data = [];
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{
@@ -119,14 +119,14 @@ class ppaccept extends base
 			return $this->db->sql_in_set('u.user_id', $this->helper->prepare_users_for_query($options['users']));
 		}
 
-		$sql_where 	= $group_ids = array();
+		$sql_where 	= $group_ids = [];
 		$extremes 	= array('min' => '>=', 'max' => '<=');
 
 		// Get auto group rule data for this type
 		$group_rules = $this->get_group_rules($this->get_condition_type());
 		foreach ($group_rules as $group_rule)
 		{
-			$where = array();
+			$where = [];
 			foreach ($extremes as $end => $sign)
 			{
 				if (!empty($group_rule['autogroups_' . $end . '_value']))

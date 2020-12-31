@@ -48,6 +48,7 @@ services:
             - '@david63.privacypolicy.core.privacypolicy'
             - '@david63.privacypolicy.core.functions'
             - '%tables%'
+            - '%core.root_path%ext/david63/privacypolicy/adm/style/images'
 
     david63.privacypolicy.acp.edit.controller:
         class: david63\privacypolicy\controller\acp_edit_controller
@@ -138,3 +139,6 @@ services:
         class: david63\privacypolicy\core\functions
         arguments:
             - '@ext.manager'
+
+    _defaults:
+        public: true

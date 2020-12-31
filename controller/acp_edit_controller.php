@@ -117,8 +117,7 @@ class acp_edit_controller implements acp_edit_interface
 		}
 
 		// Add the language files
-		$this->language->add_lang('acp_privacy_edit', $this->functions->get_ext_namespace());
-		$this->language->add_lang('posting');
+		$this->language->add_lang(array('acp_privacy_edit', 'posting'), $this->functions->get_ext_namespace());
 
 		// Check if Tapatalk is installed
 		$this->privacypolicy->tapatalk();
@@ -131,7 +130,7 @@ class acp_edit_controller implements acp_edit_interface
 		$preview   			= false;
 		$get_text 			= true;
 		$back				= false;
-		$s_hidden_fields 	= array();
+		$s_hidden_fields 	= [];
 
 		// Start initial var setup
 		$add_new			= $this->request->variable('add_new', false);

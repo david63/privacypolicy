@@ -82,7 +82,7 @@ class acp_data_controller implements acp_data_interface
 	* @param \phpbb\pagination							$pagination			Pagination object
 	* @param \phpbb\log\log								$log				Log object
 	* @param \david63\privacypolicy\core\functions		$functions			Functions for the extension
-	* @param array										$tables			phpBB db tables
+	* @param array										$tables				phpBB db tables
 	*
 	* @return \david63\privacypolicy\controller\acp_data_controller
 	* @access public
@@ -183,7 +183,7 @@ class acp_data_controller implements acp_data_interface
 		$this->db->sql_freeresult($result);
 
 		$sort_by_text	= array('i' => $this->language->lang('USER_ID'), 'u' => $this->language->lang('USERNAME'), 'a' => $this->language->lang('ACCEPT_DATE'), 'r' => $this->language->lang('REG_DATE'), 'l' => $this->language->lang('LAST_VISIT'));
-		$limit_days	= array();
+		$limit_days	= [];
 		$s_sort_key	= $s_limit_days = $s_sort_dir = $u_sort_param = '';
 
 		gen_sort_selects($limit_days, $sort_by_text, $sort_days, $sort_key, $sd, $s_limit_days, $s_sort_key, $s_sort_dir, $u_sort_param);
@@ -206,7 +206,7 @@ class acp_data_controller implements acp_data_interface
 		$start 	= $this->pagination->validate_start($start, $this->config['privacy_policy_list_lines'], $user_count);
 		$this->pagination->generate_template_pagination($action . "&ampfc=$fc", 'pagination', 'start', $user_count, $this->config['privacy_policy_list_lines'], $start);
 
-		$first_characters		= array();
+		$first_characters		= [];
 		$first_characters['']	= $this->language->lang('ALL');
 		for ($i = ord($this->language->lang('START_CHARACTER')); $i	<= ord($this->language->lang('END_CHARACTER')); $i++)
 		{
@@ -259,7 +259,7 @@ class acp_data_controller implements acp_data_interface
 	 */
 	protected function character_select($default)
 	{
-		$options	 = array();
+		$options	 = [];
 		$options[''] = $this->language->lang('ALL');
 
 		for ($i = ord($this->language->lang('START_CHARACTER')); $i	<= ord($this->language->lang('END_CHARACTER')); $i++)
@@ -449,7 +449,7 @@ class acp_data_controller implements acp_data_interface
 	protected function get_last_visit($user_id)
 	{
 		$last_visit 	= '';
-		$session_times	= array();
+		$session_times	= [];
 
 		$sql = 'SELECT session_user_id, MAX(session_time) AS session_time
 			FROM ' . $this->tables['sessions'] . '

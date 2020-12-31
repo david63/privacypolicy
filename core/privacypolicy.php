@@ -320,7 +320,7 @@ class privacypolicy
 
 			$result = $this->db->sql_query($sql);
 
-			$user_ips = array();
+			$user_ips = [];
 			while ($row = $this->db->sql_fetchrow($result))
 			{
 				if ($row['poster_ip'])
@@ -429,7 +429,7 @@ class privacypolicy
 
 		$result	= $this->db->sql_query($sql);
 
-		$pf_fields_array = array();
+		$pf_fields_array = [];
 
 		while ($row = $this->db->sql_fetchrow($result))
 		{

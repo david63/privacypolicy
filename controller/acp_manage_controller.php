@@ -54,27 +54,31 @@ class acp_manage_controller implements acp_manage_interface
 	/** @var string phpBB tables */
 	protected $tables;
 
+	/** @var string */
+	protected $ext_images_path;
+
 	/** @var string Custom form action */
 	protected $u_action;
 
 	/**
 	* Constructor for admin controller
 	*
-	* @param \phpbb\config\config						$config			Config object
-	* @param \phpbb\request\request						$request		Request object
-	* @param \phpbb\template\template					$template		Template object
-	* @param \phpbb\user								$user			User object
-	* @param \phpbb\language\language					$language		Language object
-	* @param \phpbb\log\log								$log			Log object
-	* @param \phpbb_db_driver							$db				The db connection
-	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy	Methods for the extension
-	* @param \david63\privacypolicy\core\functions		$functions		Functions for the extension
-	* @param array										$tables			phpBB db tables
+	* @param \phpbb\config\config						$config				Config object
+	* @param \phpbb\request\request						$request			Request object
+	* @param \phpbb\template\template					$template			Template object
+	* @param \phpbb\user								$user				User object
+	* @param \phpbb\language\language					$language			Language object
+	* @param \phpbb\log\log								$log				Log object
+	* @param \phpbb_db_driver							$db					The db connection
+	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy		Methods for the extension
+	* @param \david63\privacypolicy\core\functions		$functions			Functions for the extension
+	* @param array										$tables				phpBB db tables
+	* @param string                                 	$ext_images_path    Path to this extension's images
 	*
 	* @return \david63\privacypolicy\controller\acp_manage_controller
 	* @access public
 	*/
-	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, privacypolicy $privacypolicy, functions $functions, $tables)
+	public function __construct(config $config, request $request, template $template, user $user, language $language, log $log, driver_interface $db, privacypolicy $privacypolicy, functions $functions, array $tables, string $ext_images_path)
 	{
 		$this->config			= $config;
 		$this->request			= $request;
@@ -86,6 +90,7 @@ class acp_manage_controller implements acp_manage_interface
 		$this->privacypolicy	= $privacypolicy;
 		$this->functions		= $functions;
 		$this->tables			= $tables;
+		$this->ext_images_path	= $ext_images_path;
 	}
 
 	/**
@@ -97,8 +102,7 @@ class acp_manage_controller implements acp_manage_interface
 	public function display_options()
 	{
 		// Add the language files
-		$this->language->add_lang('acp_privacypolicy', $this->functions->get_ext_namespace());
-		$this->language->add_lang('acp_common', $this->functions->get_ext_namespace());
+		$this->language->add_lang(array('acp_privacypolicy', 'acp_common'), $this->functions->get_ext_namespace());
 
 		// Check if Tapatalk is installed
 		$this->privacypolicy->tapatalk();

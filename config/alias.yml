@@ -1,0 +1,22 @@
+# aliases to allow autowiring not to conflict with other extensions
+
+services:
+    phpbb\auth\auth: '@auth'
+    phpbb\cache\service: '@cache'
+    phpbb\config\config: '@config'
+    phpbb\config\db_text: '@config_text'
+    phpbb\controller\helper: '@controller.helper'	
+    phpbb\db\driver\driver_interface: '@dbal.conn'
+    phpbb\db\tools\tools_interface: '@dbal.tools'
+    phpbb\event\dispatcher_interface: '@dispatcher'
+    phpbb\extension\manager: '@ext.manager'
+    phpbb\filesystem\filesystem: '@filesystem'
+    phpbb\group\helper: '@group_helper'
+    phpbb\language\language: '@language'
+    phpbb\log\log: '@log'
+    phpbb\notification\manager: '@notification_manager'
+    phpbb\pagination: '@pagination'
+    phpbb\di\service_collection: '@profilefields.type_collection'
+    phpbb\request\request: '@request'
+    phpbb\template\template: '@template'
+    phpbb\user: '@user'

@@ -67,6 +67,8 @@
 			cookieData = cookieData + '; secure';
 		}
 
+		cookieData = cookieData + '; SameSite=Strict';
+
     	document.cookie = cookieData;
 
 		return null;
