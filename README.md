@@ -2,7 +2,7 @@
 
 Adds an option for the user to accept the use of cookies under EU Cookie Directive (2012), and the privacy requirements under the GDPR Directive (2018)
 
-[![Build Status](https://github.com/david63/privacypolicy/workflows/Tests/badge.svg)](https://github.com/phpbb-extensions/david63/privacypolicy)privacypolicy)
+[![Build Status](https://github.com/david63/privacypolicy/workflows/Tests/badge.svg)](https://github.com/phpbb-extensions/david63/privacypolicy)
 [![License](https://poser.pugx.org/david63/privacypolicy/license)](https://packagist.org/packages/david63/privacypolicy)
 [![Latest Stable Version](https://poser.pugx.org/david63/privacypolicy/v/stable)](https://packagist.org/packages/david63/privacypolicy)
 [![Latest Unstable Version](https://poser.pugx.org/david63/privacypolicy/v/unstable)](https://packagist.org/packages/david63/privacypolicy)
