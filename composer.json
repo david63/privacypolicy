@@ -2,7 +2,7 @@
 	"name": "david63/privacypolicy",
 	"type": "phpbb-extension",
 	"description": "Adds an option for the user to accept the use of cookies under EU Cookie Directive (2012), and the privacy requirements under the GDPR Directive (2018)",
-	"version": "3.1.0-RC2",
+	"version": "3.1.0-RC3",
 	"time": "2020-01-19",
 	"keywords": [
 		"phpbb",

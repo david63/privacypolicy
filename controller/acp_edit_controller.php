@@ -23,27 +23,27 @@ use david63\privacypolicy\core\functions;
 /**
  * ACP edit controller
  */
-class acp_edit_controller implements acp_edit_interface
+class acp_edit_controller
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\log\log */
+	/** @var log */
 	protected $log;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
 	/** @var string phpBB root path */
@@ -52,16 +52,16 @@ class acp_edit_controller implements acp_edit_interface
 	/** @var string PHP extension */
 	protected $phpEx;
 
-	/** @var \david63\privacypolicy\core\privacypolicy_lang */
+	/** @var privacypolicy_lang */
 	protected $privacypolicy_lang;
 
-	/** @var \david63\privacypolicy\core\privacypolicy */
+	/** @var privacypolicy */
 	protected $privacypolicy;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var string phpBB tables */
+	/** @var array phpBB tables */
 	protected $tables;
 
 	/** @var string Custom form action */
@@ -70,18 +70,18 @@ class acp_edit_controller implements acp_edit_interface
 	/**
 	 * Constructor for admin controller
 	 *
-	 * @param \phpbb\config\config                           	$config             Config object
-	 * @param \phpbb\request\request                         	$request            Request object
-	 * @param \phpbb\template\template                       	$template           Template object
-	 * @param \phpbb\user                                    	$user               User object
-	 * @param \phpbb\language\language                       	$language           Language object
-	 * @param \phpbb\log\log                                 	$log                Log object
-	 * @param \phpbb_db_driver                                	$db                 The db connection
-	 * @param string										 	$phpbb_root_path	phpBB root path
-	 * @param string										 	$php_ext            phpBB extension
-	 * @param \david63\privacypolicy\core\privacypolicy_lang 	privacypolicy_lang  Methods for the extension
-	 * @param \david63\privacypolicy\core\privacypolicy			privacypolicy		Methods for the extension
-	 * @param \david63\privacypolicy\core\functions				$functions			Functions for the extension
+	 * @param config                $config             	Config object
+	 * @param request               $request            	Request object
+	 * @param template              $template           	Template object
+	 * @param user                  $user               	User object
+	 * @param language              $language           	Language object
+	 * @param log                   $log                	Log object
+	 * @param driver_interface      $db                 	The db connection
+	 * @param string				$phpbb_root_path		phpBB root path
+	 * @param string				$php_ext            	phpBB extension
+	 * @param privacypolicy_lang 	privacypolicy_lang  	Methods for the extension
+	 * @param privacypolicy			privacypolicy			Methods for the extension
+	 * @param functions				$functions				Functions for the extension
 	 *
 	 * @return \david63\privacypolicy\controller\acp_edit_controller
 	 * @access public
@@ -117,7 +117,8 @@ class acp_edit_controller implements acp_edit_interface
 		}
 
 		// Add the language files
-		$this->language->add_lang(array('acp_privacy_edit', 'posting'), $this->functions->get_ext_namespace());
+		$this->language->add_lang('acp_privacy_edit', $this->functions->get_ext_namespace());
+		$this->language->add_lang('posting');
 
 		// Check if Tapatalk is installed
 		$this->privacypolicy->tapatalk();

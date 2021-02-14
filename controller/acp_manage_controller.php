@@ -22,36 +22,36 @@ use david63\privacypolicy\core\functions;
 /**
 * Admin controller
 */
-class acp_manage_controller implements acp_manage_interface
+class acp_manage_controller
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\log\log */
+	/** @var log */
 	protected $log;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var \david63\privacypolicy\core\privacypolicy */
+	/** @var privacypolicy */
 	protected $privacypolicy;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var string phpBB tables */
+	/** @var array phpBB tables */
 	protected $tables;
 
 	/** @var string */
@@ -63,17 +63,17 @@ class acp_manage_controller implements acp_manage_interface
 	/**
 	* Constructor for admin controller
 	*
-	* @param \phpbb\config\config						$config				Config object
-	* @param \phpbb\request\request						$request			Request object
-	* @param \phpbb\template\template					$template			Template object
-	* @param \phpbb\user								$user				User object
-	* @param \phpbb\language\language					$language			Language object
-	* @param \phpbb\log\log								$log				Log object
-	* @param \phpbb_db_driver							$db					The db connection
-	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy		Methods for the extension
-	* @param \david63\privacypolicy\core\functions		$functions			Functions for the extension
-	* @param array										$tables				phpBB db tables
-	* @param string                                 	$ext_images_path    Path to this extension's images
+	* @param config					$config				Config object
+	* @param request				$request			Request object
+	* @param template				$template			Template object
+	* @param user					$user				User object
+	* @param language				$language			Language object
+	* @param log					$log				Log object
+	* @param driver_interface		$db					The db connection
+	* @param privacypolicy			privacypolicy		Methods for the extension
+	* @param functions				$functions			Functions for the extension
+	* @param array					$tables				phpBB db tables
+	* @param string                 $ext_images_path    Path to this extension's images
 	*
 	* @return \david63\privacypolicy\controller\acp_manage_controller
 	* @access public

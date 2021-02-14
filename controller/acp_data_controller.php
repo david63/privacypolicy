@@ -23,45 +23,45 @@ use david63\privacypolicy\core\functions;
 /**
 * Admin data controller
 */
-class acp_data_controller implements acp_data_interface
+class acp_data_controller
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var string phpBB root path */
+	/** @var phpBB root path */
 	protected $root_path;
 
-	/** @var string PHP extension */
+	/** @var PHP extension */
 	protected $php_ext;
 
-	/** @var \david63\privacypolicy\core\privacypolicy */
+	/** @var privacypolicy */
 	protected $privacypolicy;
 
-	/** @var \phpbb\pagination */
+	/** @var pagination*/
 	protected $pagination;
 
-	/** @var \phpbb\log\log */
+	/** @var log */
 	protected $log;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var string phpBB tables */
+	/** @var array phpBB tables */
 	protected $tables;
 
 	/** @var string Custom form action */
@@ -70,19 +70,19 @@ class acp_data_controller implements acp_data_interface
 	/**
 	* Constructor for data controller
 	*
-	* @param \phpbb\config\config						$config				Config object
-	* @param \phpbb\request\request						$request			Request object
-	* @param \phpbb\user								$user				User object
-	* @param \phpbb\template\template					$template			Template object
-	* @param \phpbb\language\language					$language			Language object
-	* @param \phpbb_db_driver							$db					The db connection
-	* @param string										$phpbb_root_path    phpBB root path
-	* @param string										$php_ext            phpBB extension
-	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy		Methods for the extension
-	* @param \phpbb\pagination							$pagination			Pagination object
-	* @param \phpbb\log\log								$log				Log object
-	* @param \david63\privacypolicy\core\functions		$functions			Functions for the extension
-	* @param array										$tables				phpBB db tables
+	* @param config				$config				Config object
+	* @param request			$request			Request object
+	* @param user				$user				User object
+	* @param template			$template			Template object
+	* @param language			$language			Language object
+	* @param driver_interface	$db					The db connection
+	* @param string				$phpbb_root_path    phpBB root path
+	* @param string				$php_ext            phpBB extension
+	* @param privacypolicy		privacypolicy		Methods for the extension
+	* @param pagination			$pagination			Pagination object
+	* @param log				$log				Log object
+	* @param functions			$functions			Functions for the extension
+	* @param array				$tables				phpBB db tables
 	*
 	* @return \david63\privacypolicy\controller\acp_data_controller
 	* @access public

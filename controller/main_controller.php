@@ -21,27 +21,27 @@ use david63\privacypolicy\core\privacypolicy_lang;
 use david63\privacypolicy\core\privacypolicy;
 use david63\privacypolicy\core\functions;
 
-class main_controller implements main_interface
+class main_controller
 {
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\controller\helper */
+	/** @var helper */
 	protected $helper;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
 	/** @var string phpBB root path */
@@ -50,34 +50,34 @@ class main_controller implements main_interface
 	/** @var string PHP extension */
 	protected $phpEx;
 
-	/** @var \david63\privacypolicy\core\privacypolicy_lang */
+	/** @var privacypolicy_lang */
 	protected $privacypolicy_lang;
 
-	/** @var \david63\privacypolicy\core\privacypolicy */
+	/** @var privacypolicy */
 	protected $privacypolicy;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var string phpBB tables */
+	/** @var array phpBB tables */
 	protected $tables;
 
 	/**
 	* Constructor
 	*
-	* @param \phpbb\user									$user				User object
-	* @param \phpbb\request\request							$request			Request object
-	* @param \phpbb\controller\helper						$helper				Helper object
-	* @param \phpbb_db_driver								$db					The db connection
-	* @param \phpbb\template\template						$template			Template object
-	* @param \phpbb\config\config							$config				Config object
-	* @param \phpbb\language\language						$language			Language object
-	* @param string											$phpbb_root_path	phpBB root path
-	* @param string											$php_ext            phpBB extension
-	* @param \david63\privacypolicy\core\privacypolicy_lang privacypolicy_lang  Methods for the extension
-	* @param \david63\privacypolicy\core\privacypolicy		privacypolicy		Methods for the extension
-	* @param \david63\privacypolicy\core\functions			$functions			Functions for the extension
-	* @param array											$tables			phpBB db tables
+	* @param user					$user				User object
+	* @param request				$request			Request object
+	* @param helper					$helper				Helper object
+	* @param driver_interface		$db					The db connection
+	* @param template				$template			Template object
+	* @param config					$config				Config object
+	* @param language				$language			Language object
+	* @param string					$phpbb_root_path	phpBB root path
+	* @param string					$php_ext            phpBB extension
+	* @param privacypolicy_lang		privacypolicy_lang  Methods for the extension
+	* @param privacypolicy			privacypolicy		Methods for the extension
+	* @param functions				$functions			Functions for the extension
+	* @param array					$tables				phpBB db tables
 	*
 	* @return \david63\privacypolicy\controller\acp_managemain
 	*/

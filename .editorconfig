@@ -1,0 +1,22 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# phpBB - Editor Vorgaben v1 - https://www.phpbb.de/kb/viewarticle?a=93
+# 2020 LukeWCS, phpBB.de
+
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+[*.{php,js,css,json,html,txt,md,yml}]
+charset = utf-8
+indent_style = tab
+indent_size = 4
+trim_trailing_whitespace = true
+
+[*.{html,txt,md,yml}]
+trim_trailing_whitespace = false
+
+[*.yml]
+indent_style = space

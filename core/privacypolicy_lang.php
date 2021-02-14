@@ -20,33 +20,33 @@ use phpbb\template\template;
 */
 class privacypolicy_lang
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var string phpBB tables */
+	/** @var array phpBB tables */
 	protected $tables;
 
 	/**
 	* Constructor for privacypolicy
 	*
-	* @param \phpbb\config\config		$config		Config object
-	* @param \phpbb\user				$user		User object
-	* @param \phpbb\language\language	$language	Language object
-	* @param \phpbb_db_driver			$db			The db connection
-	* @param \phpbb\template\template	$template	Template object
-	* @param array						$tables		phpBB db tables
+	* @param config				$config		Config object
+	* @param user				$user		User object
+	* @param language			$language	Language object
+	* @param driver_interface	$db			The db connection
+	* @param template			$template	Template object
+	* @param array				$tables		phpBB db tables
 	*
 	* @access public
 	*/

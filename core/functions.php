@@ -17,13 +17,13 @@ use phpbb\exception\version_check_exception;
 */
 class functions
 {
-	/** @var \phpbb\extension\manager */
+	/** @var manager */
 	protected $phpbb_extension_manager;
 
 	/**
 	* Constructor for functions
 	*
-	* @param \phpbb\extension\manager 	$phpbb_extension_manager	Extension manager
+	* @param manager 	$phpbb_extension_manager	Extension manager
 	*
 	* @access public
 	*/

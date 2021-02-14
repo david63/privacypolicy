@@ -20,27 +20,27 @@ use david63\privacypolicy\core\functions;
 /**
 * UCP controller
 */
-class ucp_controller implements ucp_interface
+class ucp_controller
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \david63\privacypolicy\core\privacypolicy */
+	/** @var privacypolicy */
 	protected $privacypolicy;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
 	/** @var string Custom form action */
@@ -49,13 +49,13 @@ class ucp_controller implements ucp_interface
 	/**
 	* Constructor for ucp controller
 	*
-	* @param \phpbb\config\config						$config			Config object
-	* @param \phpbb\user								$user			User object
-	* @param \phpbb\request\request						$request		Request object
-	* @param \phpbb\language\language					$language		Language object
-	* @param \phpbb\template\template          			$template		Template object
-	* @param \david63\privacypolicy\core\privacypolicy	privacypolicy	Methods for the extension
-	* @param \david63\privacypolicy\core\functions		$functions		Functions for the extension
+	* @param config				$config			Config object
+	* @param user				$user			User object
+	* @param request			$request		Request object
+	* @param language			$language		Language object
+	* @param template          	$template		Template object
+	* @param privacypolicy		privacypolicy	Methods for the extension
+	* @param functions			$functions		Functions for the extension
 	*
 	* @return \david63\privacypolicy\controller\ucp_controller
 	* @access public

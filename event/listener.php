@@ -32,52 +32,52 @@ use david63\privacypolicy\core\functions;
 */
 class listener implements EventSubscriberInterface
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\auth\auth */
+	/** @var auth */
 	protected $auth;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\controller\helper */
+	/** @var helper */
 	protected $helper;
 
-	/** @var \phpbb\request\request */
+	/** @var request */
 	protected $request;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/* @var \david63\privacypolicy\core\privacypolicy_lang */
+	/* @var privacypolicy_lang */
 	protected $privacypolicy_lang;
 
-	/** @var \david63\privacypolicy\core\privacypolicy */
+	/** @var privacypolicy */
 	protected $privacypolicy;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var \phpbb\autogroups\conditions\manage */
+	/** @var manage */
 	protected $autogroup_manager;
 
 	/**
 	* Constructor for listener
 	*
-	* @param \phpbb\config\config							$config				Config object
-	* @param \phpbb\auth\auth 								$auth				Auth object
-	* @param \phpbb\template\template						$template			Template object
-	* @param \phpbb\user                					$user				User object
-	* @param \phpbb\controller\helper						$helper				Helper object
-	* @param \phpbb\request\request							$request			Request object
-	* @param \phpbb\language\language						$language			Language object
-	* @param \david63\privacypolicy\core\privacypolicy_lang	privacypolicy_lang	Methods for the extension
-	* @param \david63\privacypolicy\core\functions			$functions			Functions for the extension
-	* @param \phpbb\autogroups\conditions\manage			autogroup_manager	Autogroup manager
+	* @param config					$config					Config object
+	* @param auth 					$auth					Auth object
+	* @param template				$template				Template object
+	* @param user                	$user					User object
+	* @param helper					$helper					Helper object
+	* @param request				$request				Request object
+	* @param language				$language				Language object
+	* @param privacypolicy_lang		privacypolicy_lang		Methods for the extension
+	* @param functions				$functions				Functions for the extension
+	* @param manage					autogroup_manager		Autogroup manager
 	*
 	* @return \david63\privacypolicy\event\listener
 	* @access public
@@ -348,7 +348,7 @@ class listener implements EventSubscriberInterface
 		if (!$this->auth->acl_get('a_privacy_manage'))
 		{
 			$sql_ary 			= $event['sql_ary'];
-			$sql_ary 			= str_replace('b.display_on_posting = 1', 'b.display_on_posting = 1 AND b.bbcode_tag <> "hr"', $sql_ary);
+			$sql_ary['WHERE']	.= ' AND b.bbcode_tag <> "hr"';
 			$event['sql_ary']	= $sql_ary;
 		}
 	}

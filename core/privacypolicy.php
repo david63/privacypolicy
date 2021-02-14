@@ -24,25 +24,25 @@ use david63\privacypolicy\core\functions;
 */
 class privacypolicy
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\template\template */
+	/** @var template */
 	protected $template;
 
-	/** @var \phpbb\user */
+	/** @var user */
 	protected $user;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var driver_interface */
 	protected $db;
 
-	/** @var \phpbb\event\dispatcher_interface */
+	/** @var dispatcher_interface */
 	protected $dispatcher;
 
-	/** @var \phpbb\di\service_collection */
+	/** @var service_collection */
 	protected $type_collection;
 
 	/** @var string phpBB root path */
@@ -51,13 +51,13 @@ class privacypolicy
 	/** @var string PHP extension */
 	protected $phpEx;
 
-	/** @var \david63\privacypolicy\core\functions */
+	/** @var functions */
 	protected $functions;
 
-	/** @var string phpBB tables */
+	/** @var array phpBB tables */
 	protected $tables;
 
-	/** @var \phpbb\autogroups\conditions\manage */
+	/** @var manage */
 	protected $autogroup_manager;
 
 	/** @var string Custom form action */
@@ -66,18 +66,18 @@ class privacypolicy
 	/**
 	* Constructor for privacypolicy
 	*
-	* @param \phpbb\config\config					$config				Config object
-	* @param \phpbb\template\template				$template			Template object
-	* @param \phpbb\user							$user				User object
-	* @param \phpbb\language\language				$language			Language object
-	* @param \phpbb_db_driver						$db					The db connection
-	* @param dispatcher_interface					$dispatcher			phpBB dispatcher
-	* @param \phpbb\di\service_collection 			$type_collection	CPF data
-	* @param string									$phpbb_root_path    phpBB root path
-	* @param string									$php_ext            phpBB extension
-	* @param \david63\privacypolicy\core\functions	$functions			Functions for the extension
-	* @param array									$tables				phpBB db tables
-	* @param \phpbb\autogroups\conditions\manage	autogroup_manager	Autogroup manager
+	* @param config						$config				Config object
+	* @param template					$template			Template object
+	* @param user						$user				User object
+	* @param language					$language			Language object
+	* @param driver_interface			$db					The db connection
+	* @param dispatcher_interface		$dispatcher			phpBB dispatcher
+	* @param service_collection 		$type_collection	CPF data
+	* @param string						$phpbb_root_path    phpBB root path
+	* @param string						$php_ext            phpBB extension
+	* @param functions					$functions			Functions for the extension
+	* @param array						$tables				phpBB db tables
+	* @param manage						autogroup_manager	Autogroup manager
 	*
 	* @access public
 	*/
